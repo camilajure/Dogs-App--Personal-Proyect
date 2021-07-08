@@ -165,6 +165,7 @@ async function getAllById(req, res){
     })
     } else {
         res.status(500).send({ error: 'Ups!!! 😱' })
+		// res.status(500).send({ img: 'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/213878167_4203688373058500_520078069889842109_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=a26aad&_nc_ohc=YgbPo73GeloAX_8B1cH&_nc_ht=scontent.fsfn4-1.fna&oh=af8cd6439341aa50a08d0d50ea34af55&oe=60EBA26A' })
         }
     }
 }

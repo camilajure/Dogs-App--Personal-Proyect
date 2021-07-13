@@ -4,7 +4,32 @@ const { API_KEY } = process.env;
 const { Breed, Temperament } = require('../db');
 const {v4: uuidv4} = require('uuid');
 
+
+
 //post
+const addBreed= async  (req, res)=> {
+
+    const { name, height, weight, life_span, temperament } = req.body;
+    
+    try {
+        await Breed.create({
+            id: uuidv4(),
+            name: name,
+            height: height,
+            weight: weight,
+            life_span: life_span,
+            image: 'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B'
+        })
+        
+        //const dog = await Breed.findByPk(breed.id)
+            .then(breed => Breed.addTemperaments(temperament))
+            .then(r => res.send({ message: 'Breed created sucessfully' }))
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+
 // async function addBreed (req, res,next){
 //     const {name,weight, height, life_span, temperament} = req.body;
 //     try {
@@ -26,17 +51,35 @@ const {v4: uuidv4} = require('uuid');
 //     }
                     
 // }
-async function addBreed(req, res, next) {
-	const id = uuidv4();
-	const breedBody = {...req.body, id};
-	try {
-		const createdBreed = await Breed.create(breedBody);
-		return res.send(createdBreed);
-	} catch (err) {
-		next(err);
-	}
-}
-
+// async function addBreed(req, res, next) {
+// 	//const id = uuidv4();
+// 	const {name,weight, height, life_span, temperament} = req.body
+// 	// const breedBody = {...req.body, id};
+// 	try {
+// 		const createdBreed = await Breed.create({
+// 			id:uuidv4(),
+// 			name: name,
+// 			weight: weight, 
+// 			height: height, 
+// 			life_span: life_span, 
+// 			temperament:temperament
+// 		});
+// 		if(createdBreed){
+// 			return res.json({message: 'Breed created sucessfully',
+// 				data: createdBreed}); 
+// 			}
+// 	} catch (err) {
+// 		next(err);
+// 	}
+// }
+// genres.forEach(async (genre) => {
+//     let genreThatMatchesDb = await Genre.findOne({
+//       where: {
+//         name: genre,
+//       },
+//     });
+//     game.addGenre(genreThatMatchesDb);
+//   });
 
 
 // GET TODAS
@@ -131,7 +174,7 @@ const getAllBreed = async (req, res) => {
 
 
 
-async function getAllById(req, res){
+async function getAllById(req, res, next){
     const {id} = req.params
     try {
         if (id.length > 6) {
@@ -157,18 +200,22 @@ async function getAllById(req, res){
         res.send(breed)
 } 
 }
-    catch (error) {
-        if(error.response?.status === 404) {
-            Breed.findByPk(req.params.id).then(breed => {
-        if(breed) return res.send(breed)
-            return res.sendStatus(404)
-    })
-    } else {
-        res.status(500).send({ error: 'Ups!!! 😱' })
-		// res.status(500).send({ img: 'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/213878167_4203688373058500_520078069889842109_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=a26aad&_nc_ohc=YgbPo73GeloAX_8B1cH&_nc_ht=scontent.fsfn4-1.fna&oh=af8cd6439341aa50a08d0d50ea34af55&oe=60EBA26A' })
-        }
-    }
+catch(error){
+	next(error)
 }
+}
+//     // catch (error) {
+//     //     if(error.response?.status === 404) {
+//     //         Breed.findByPk(req.params.id).then(breed => {
+//     //     if(breed) return res.send(breed)
+//     //         return res.sendStatus(404)
+//     // })
+//     // } else {
+//     //     res.status(500).send({ error: 'Ups!!! 😱' })
+// 	// 	// res.status(500).send({ img: 'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/213878167_4203688373058500_520078069889842109_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=a26aad&_nc_ohc=YgbPo73GeloAX_8B1cH&_nc_ht=scontent.fsfn4-1.fna&oh=af8cd6439341aa50a08d0d50ea34af55&oe=60EBA26A' })
+//     //     }
+//     // }
+// }
 
 module.exports={
     getAllBreed,

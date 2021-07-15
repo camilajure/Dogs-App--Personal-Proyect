@@ -1,22 +1,11 @@
 import React , {useEffect, useState} from 'react';
 import './PaginationComponent.css';
-//import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {getAllBreeds} from '../../actions/actions';
 import  './Card.css';
 import { connect } from 'react-redux';
 import Filter from './Filter/Filter';
-//import {useDispatch} from 'react-redux';
 
-// const renderData = (data) => {
-//     return (
-//       <ul>
-//         {data.map((breed, index) => {
-//           return <li key={index}>{breed.title}</li>;
-//         })}
-//       </ul>
-//     );
-//   }; 
 
 const renderCard=(card)=> {
   return (
@@ -28,7 +17,7 @@ const renderCard=(card)=> {
     
         <div className='breed-card'>
         
-          <Link to={'/home/:id'}>
+          <Link to={`/home/${card.id}`}>
                   <p className='name'>{card.name}</p>
                   
                   <img className='img' src={card.image}  width="360" height="240" alt=""/>
@@ -49,11 +38,7 @@ const renderCard=(card)=> {
 
   
   function PaginationComponent({breeds, getAllBreeds}) {
-    //const [card, setCard] = useState([])
-    // function getBreed(){
-    //     return axios.get('http://localhost:3001/breeds')
-    //     .then(card => setCard(card.data))
-    // }
+   
    function getAllBreedsFunction(){
      getAllBreeds()
    }
@@ -65,7 +50,7 @@ const renderCard=(card)=> {
     const [itemsPerPage, setitemsPerPage] = useState(8);
   
     const [pageNumberLimit, setpageNumberLimit] = useState(8);
-    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(8);
+    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(6);
     const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
   
     const handleClick = (event) => {

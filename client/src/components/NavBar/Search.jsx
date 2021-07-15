@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 import './Search.css';
 import { getBreedsByName } from "../../actions/actions";
 
@@ -30,6 +30,7 @@ function handleSubmit(event) {
                 value={input.name}
                 onChange={(e) => handleChange(e)}
             />
+           
         </div>
             <button type="submit">Search</button>
         </form>

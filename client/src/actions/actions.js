@@ -91,19 +91,19 @@ export function getTemperament(id){
 //     .catch(err=>console.log(err));
 // }
 
-// export function postBreed (breeds){
-//     return (dispatch)=>{
-//     return axios.post('http://localhost:3001/breeds', breeds, {
-//         headers: {"Content-Type": "application/json"},
-//     })
-//     .then((response) =>{
-//         dispatch({
-//             type: 'POST_BREED',
-//             payload: response.data.createBreed
-//         })
-//     });
-// }
-// }
+export function postBreed (breeds){
+    return (dispatch)=>{
+    return axios.post('http://localhost:3001/breeds', breeds, {
+        headers: {"Content-Type": "application/json"},
+    })
+    .then((response) =>{
+        dispatch({
+            type: 'POST_BREED',
+            payload: response.data.createBreed
+        })
+    });
+}
+}
 
 
 //FILTROS!!

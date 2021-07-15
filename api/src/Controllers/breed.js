@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
 const axios = require('axios');
 const { API_KEY } = process.env;
 const { Breed, Temperament } = require('../db');
@@ -7,27 +7,27 @@ const {v4: uuidv4} = require('uuid');
 
 
 //post
-function addBreed(req, res, next) {
-  const { name, height, weight, life_span, temperament } = req.body;
-  if (!name || !height) return res.send({ error: 500, message: "Need a name and height" });
-  Breed.create({
-    id: uuidv4(),
-    name: name,
-            height: height,
-            weight: weight,
-            life_span: life_span,
-            image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B',
-  })
-    .then((breed) => {
-      return breed.addTemperaments(temperament);
-    })
-    .then(newRecipe => {
-      return res.json({
-        message: 'New breed created successfully',
-      });
-    })
-    .catch((error) => next(error));
-}
+// function addBreed(req, res, next) {
+//   const { name, height, weight, life_span, temperament } = req.body;
+//   if (!name || !height) return res.send({ error: 500, message: "Need a name and height" });
+//   Breed.create({
+//     id: uuidv4(),
+//     name: name,
+//             height: height,
+//             weight: weight,
+//             life_span: life_span,
+//             image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B',
+//   })
+//     .then((breed1) => {
+//       return breed1.addTemperaments(temperament);
+//     })
+//     .then(newRecipe => {
+//       return res.json({
+//         message: 'New breed created successfully',
+//       });
+//     })
+//     .catch((error) => next(error));
+// }
 
 // const addBreed= async  (req, res)=> {
 // 	const { name, height, weight, life_span, temperament } = req.body;
@@ -43,57 +43,38 @@ function addBreed(req, res, next) {
 //         })
         
 //         //const dog = await Breed.findByPk(breed.id)
-//             .then((breed) => breed.addTemperaments(temperament))
+//             .then(breed => Breed.addTemperaments(temperament))
 //             .then(r => res.send({ message: 'New breed created successfully' }))
 //     } catch (err) {
 //         console.log(err.message);
 //     }
 // };
-    
-            
 
-// async function addBreed (req, res,next){
-//     const {name,weight, height, life_span, temperament} = req.body;
-//     try {
-//         let newBreed = await Breed.create({
-//             id: uuidv4(),
-//             name:name,
-//             weight:weight,
-//             height:height,
-//             life_span:life_span,
-//             image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B',
-//             temperament:temperament
-//         });
-//         if(newBreed){
-//             return res.json({message: 'Breed created sucessfully',
-//                     data: newBreed}); 
-//         }
-//     } catch (err) {
-//         next(err)
-//     }
-                    
-// }
-// async function addBreed(req, res, next) {
-// 	//const id = uuidv4();
-// 	const {name,weight, height, life_span, temperament} = req.body
-// 	// const breedBody = {...req.body, id};
-// 	try {
-// 		const createdBreed = await Breed.create({
-// 			id:uuidv4(),
-// 			name: name,
-// 			weight: weight, 
-// 			height: height, 
-// 			life_span: life_span, 
-// 			temperament:temperament
-// 		});
-// 		if(createdBreed){
-// 			return res.json({message: 'Breed created sucessfully',
-// 				data: createdBreed}); 
-// 			}
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// }
+
+
+
+//FUNCIONA PERO NO ME CREA LA TABLA INTERMADIA
+async function addBreed(req, res, next) {
+	//const id = uuidv4();
+	const {name,weight, height, life_span, temperament} = req.body
+	// const breedBody = {...req.body, id};
+	try {
+		const createdBreed = await Breed.create({
+			id:uuidv4(),
+			name: name,
+			weight: weight, 
+			height: height, 
+			life_span: life_span, 
+			temperament:temperament
+		});
+		if(createdBreed){
+			return res.json({message: 'Breed created sucessfully',
+				data: createdBreed}); 
+			}
+	} catch (err) {
+		next(err);
+	}
+}
 // genres.forEach(async (genre) => {
 //     let genreThatMatchesDb = await Genre.findOne({
 //       where: {

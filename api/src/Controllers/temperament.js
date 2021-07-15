@@ -33,7 +33,7 @@ async function getAllTemperament(req, res, next) {
 	});
 
 	const temperamentDB = await Temperament.bulkCreate(temp); // creo en la base de datos
-	console.log(temperamentDB);
+	// console.log(temperamentDB);
 	res.send(temperamentDB);
 }
 

@@ -1,63 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import './Search.css'
-import { connect } from 'react-redux';
-import { getBreedsByName } from '../../actions/actions';
-import { Link } from 'react-router-dom';
+import React, {  useState } from "react";
+import { connect } from "react-redux";
 
-function Search({ getBreedsByName, name, onSearch}) {
+import './Search.css';
+import { getBreedsByName } from "../../actions/actions";
 
-function getBreedsByNameFunction(){
-    getBreedsByName()
-}
+function Search (props) {
 
-useEffect(()=>{
-    getBreedsByNameFunction()
-},[])
-const [title, setTitle] =  useState(name)
+    const [input, setInput] = useState({name: ""});
 
-    function handleChange(event) {
-        setTitle(event.target.value);
+function handleChange(event) {
+    setInput({ name: event.target.value });
     }
-    async function handleSubmit(event) {
-        event.preventDefault();
-       
-        // setLoading(true);
-        // await getBreeds(title);
-        // setLoading(false);
 
+function handleSubmit(event) {
+    event.preventDefault();
+    props.getBreedsByName(input.name);
     }
 
     return (
-        <div className= 'search'>
-            <form onSubmit={(e) => handleSubmit(e) } >
-                <input
-                    type="text"
-                    id="title"
-                    autoComplete="off"
-                    onChange={(e) => handleChange(e)}
-                    placeholder='Search breed'
-                    value={title}
-                />
-                
-                <button type="Submit" onClick={handleSubmit}>Search</button>
-                
-            </form>
+    <div>
+        <form className="search" onSubmit={(e) => handleSubmit(e)}>
+            <div>
+            
+            <input
+                name="title"
+                type="text"
+                id="title"
+                autoComplete="off"
+                value={input.name}
+                onChange={(e) => handleChange(e)}
+            />
         </div>
-    )
-
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    );
 }
 
-function mapStateToProps(state) {
-    return {
+
+function mapStateToProps(state){
+    return{
         breeds: state.breeds
-    };
+    }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch){
+
     return {
-        getBreedsByName: name => dispatch(getBreedsByName(name)),
-        
-    };
+    getBreedsByName: name => dispatch(getBreedsByName(name)),
+    
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

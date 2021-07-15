@@ -1,8 +1,8 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import './CreateBreed.css';
-import {getBreeds, getTemperament} from '../../actions/actions';
+import {getBreeds, getTemperament, postBreed} from '../../actions/actions';
 import { useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+//import axios from 'axios';
 import { connect } from 'react-redux';
 
 function CreateBreed(props) {
@@ -16,6 +16,20 @@ function CreateBreed(props) {
 		temperament: [],
         image:''
 	});
+    // function getAllBreedsFunction(){
+    //     getAllBreeds()
+    //   }
+   
+    //    useEffect(() => {
+    //      getAllBreedsFunction()
+    //      }, [])
+function createBreedFunction(){
+    postBreed()
+    getTemperament();
+}
+useEffect(() =>{
+    createBreedFunction()
+},[])
 
     function handleChange(e){
         setAgrega(e.target.value)
@@ -24,8 +38,7 @@ function CreateBreed(props) {
     function handleSubmit  (e){
         e.preventDefault();
         
-                axios.post('http://localhost:3001/breeds', agrega)
-                props.getTemperament(agrega);
+                
                 setAgrega({
             name: '',
             heightMax: '',
@@ -94,17 +107,17 @@ function handleSelect(e){
 
 
 
-            // function getNames(arr) {
-            //     let names = [];
-            //     temperament.forEach((t) => {
-            //         arr.forEach((id) => {
-            //             if (parseInt(id) === t.id) {
-            //                 names.push(t.name);
-            //             }
-            //         });
-            //     });
-            //     return names;
-            // }
+            function getNames(arr) {
+                let names = [];
+                temperament.forEach((t) => {
+                    arr.forEach((id) => {
+                        if (parseInt(id) === t.id) {
+                            names.push(t.name);
+                        }
+                    });
+                });
+                return names;
+            }
 
 
             // useEffect(() => {
@@ -174,14 +187,14 @@ function handleSelect(e){
 					>
 						<option>Select</option>
 					</select>
-                    {/* {input.temperament.map((t) => (
+                    {agrega.temperament.map((t) => (
 						<p id={t} >
 							{getNames([t])}{' '}
 							<button type='button' >
 								x
 							</button>
 						</p>
-					))} */}
+					))}
 
 <ul>
 
@@ -205,11 +218,12 @@ function handleSelect(e){
 }
 
 
-function mapDispatchToProps(dispatch){
-    return{
-        getTemperament: breed => dispatch (getTemperament(breed))
-    }
-}
+// function mapDispatchToProps(dispatch){
+//     return{
+//         getTemperament: breed => dispatch (getTemperament(breed))
+//     }
+// }
 
 
-export default connect (null, mapDispatchToProps)(CreateBreed);
+// export default connect (null, mapDispatchToProps)(CreateBreed);
+export default CreateBreed;

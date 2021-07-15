@@ -3,8 +3,9 @@ import './PaginationComponent.css';
 //import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {getAllBreeds} from '../../actions/actions';
-import Card from './Card.css';
+import  './Card.css';
 import { connect } from 'react-redux';
+import Filter from './Filter/Filter';
 //import {useDispatch} from 'react-redux';
 
 // const renderData = (data) => {
@@ -17,21 +18,23 @@ import { connect } from 'react-redux';
 //     );
 //   }; 
 
-const renderCard=(card)=> {
+const renderCard=(card, id)=> {
   return (
       <div className='contenedor2' >{card.map((card) => {
-         
+      
         return(
           <div className='detail'>
-         <div className='container'>
-       
-         <div className='breed-card'>
-           <Link to='/home/:id'>
+        <div className='container'>
+    
+        <div className='breed-card'>
+        
+          <Link to={`/home/${id}`}>
                   <p className='name'>{card.name}</p>
                   
                   <img className='img' src={card.image}  width="360" height="240" alt=""/>
                   <p className='description'>{card.temperament}</p>
                   </Link>
+                  
                   </div>
           </div>
           
@@ -42,7 +45,7 @@ const renderCard=(card)=> {
       </div>
   )
 }
-
+//`/home/${id}`
 
   
   function PaginationComponent({breeds, getAllBreeds}) {
@@ -130,7 +133,7 @@ const renderCard=(card)=> {
     return (
       <>
       
-      
+      <Filter/>
         {renderCard(currentItems)}
   
         <ul className="pageNumbers">

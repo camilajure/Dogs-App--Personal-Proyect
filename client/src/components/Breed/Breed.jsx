@@ -2,9 +2,9 @@ import React, { useEffect , useState} from 'react';
 import './Breed.css';
 //import {} from '../../actions/actions';
 //import {  } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 //import axios from 'axios';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getAllById } from '../../actions/actions';
 
 
@@ -33,53 +33,39 @@ import { getAllById } from '../../actions/actions';
 
   
 
-function Breed({breeds, getAllById}){
-  // const [card, setCard] = useState([])
-  //   function getBreedsById(id){
-  //       return axios.get(`http://localhost:3001/breeds/${id}`)
-  //       .then(card => setCard(card.data))
-  //   }
-  function getBreedsByIdFunction (){
-    getAllById()
-  }
+function Breed(props){
+
+const {id}= useParams()
+const dispatch = useDispatch();
+  // function getBreedsByIdFunction (){
+  //   getAllById()
+  // }
     useEffect(() => {
-      getBreedsByIdFunction()
+      dispatch(getAllById(id))
         
     }, [])
-    console.log(breeds)
+    // console.log(detail)
     
     return (
         <div className= 'body4'>
-         
-          <div>{breeds.map((id) => {
       
-      return(
-    
-  <div >
-      <img src={id.image} width="360" height="240" alt="" />
-      <div >
-          <div ><p>Name:</p><p>{id.name}</p></div>
-          <div ><p>Temperament:</p><p>{id.temperament}</p></div>
-          <div ><p>Weight:</p><p>{id.weight}</p></div>
-          <div ><p>Height:</p><p>{id.height}</p></div>
-          <div ><p>Life span:</p><p>{id.lifespan}</p></div>
-      </div>
-  </div>
-      ) 
-  }
-    )}
+<div >
+    <img src={props.breedsDetail.image} width="360" height="240" alt="" />
+    <div >
+        <div ><p>Name:</p><p>{props.breedsDetail.name}</p></div>
+        <div ><p>Temperament:</p><p>{props.breedsDetail.temperament}</p></div>
+        <div ><p>Weight:</p><p>{props.breedsDetail.weight}</p></div>
+        <div ><p>Height:</p><p>{props.breedsDetail.height}</p></div>
+        <div ><p>Life span:</p><p>{props.breedsDetail.life_span}</p></div>
     </div>
-
-
-
-
+</div>
 
           <div>
           <Link to='/home'>
 <button >Back</button>
 </Link>
 <div >
-  <div><span>Loading..</span></div>
+  {/* <div><span>Loading..</span></div> */}
 </div> 
             </div>
         </div>
@@ -101,7 +87,7 @@ function Breed({breeds, getAllById}){
 
 function mapStateToProps(state) {
     return {
-        breeds: state.breeds,
+      breedsDetail: state.breedsDetail,
     };
   }
   
@@ -115,3 +101,56 @@ function mapStateToProps(state) {
     mapStateToProps,
     mapDispatchToProps
   )(Breed);
+// export default Breed;
+
+
+
+
+
+
+// import React from 'react';
+// import { connect } from 'react-redux';
+// import './Breed.css';
+// import {getAllById} from '../../actions/actions';
+// import { useParams } from 'react-router-dom';
+
+
+// class Breed extends React.Component {
+
+//     componentDidMount() {
+//         // ya sabemos que el componente fue montado
+//         // ahora podemos empezar a realizar acciones con el mismo
+//         // por ejemplo ... consultas con la api ..... entonces puedo invocar a la accion
+//         // getMovieDetail !
+//         this.props.getAllById(this.props.match.params.id)
+//     }
+
+//     render() {
+//         return (
+//             <div className="movie-detail">
+//                 {this.props.breedsDetail ?
+//                     <div>
+//                         <div>
+//                             <span>
+//                                 Title:
+//                             </span>
+//                             <span>
+//                                 {this.props.breedsDetail.name}
+//                             </span>
+//                         </div>
+//                         <img src={this.props.breedsDetail.image} alt={"img"}/>
+//                     </div>
+//                     : <h1>Cargando ...</h1>
+//                 }
+//             </div>
+//         );
+//     }
+// }
+
+// function mapStateToProps(state){
+//     return {
+//         breedsDetail : state.breedsDetail
+//     }
+// }
+
+// export default connect(mapStateToProps, {getAllById})(Breed);

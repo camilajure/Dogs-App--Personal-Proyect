@@ -85,8 +85,49 @@ export function getTemperament(id){
 };
 
 
+// export function postBreed (payload){
+//     return axios.post('http://localhost:3001/breeds', payload)
+//     .then(response => console.log(response))
+//     .catch(err=>console.log(err));
+// }
+
+// export function postBreed (breeds){
+//     return (dispatch)=>{
+//     return axios.post('http://localhost:3001/breeds', breeds, {
+//         headers: {"Content-Type": "application/json"},
+//     })
+//     .then((response) =>{
+//         dispatch({
+//             type: 'POST_BREED',
+//             payload: response.data.createBreed
+//         })
+//     });
+// }
+// }
+
+
+//FILTROS!!
+export function ordenar(order, category) {
+
+    return { type: order === 'asc' ? ORDER_ASC : ORDER_DESC, payload: category };
+  };
+  
+
+
+export const sortByAlphabet = payload => ({
+    type: 'SORT_BY_ALPHABET',
+    payload
+ });
+
+
+
 export const GET_BREEDS = 'GET_BREEDS';
 export const GET_ID = 'GET_ID';
 export const GET_BYNAME = 'GET_BYNAME';
 export const GET_TEMPERAMENT = 'GET_TEMPERAMENT';
+export const POST_BREED = 'POST_BREED';
 
+export const SORT_BY_ALPHABET = 'SORT_BY_ALPHABET';
+
+export const ORDER_ASC = 'ORDER_ASC';
+export const ORDER_DESC = 'ORDER_DESC';

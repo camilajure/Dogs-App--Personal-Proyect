@@ -7,28 +7,50 @@ const {v4: uuidv4} = require('uuid');
 
 
 //post
-const addBreed= async  (req, res)=> {
-
-    const { name, height, weight, life_span, temperament } = req.body;
-    
-    try {
-        await Breed.create({
-            id: uuidv4(),
-            name: name,
+function addBreed(req, res, next) {
+  const { name, height, weight, life_span, temperament } = req.body;
+  if (!name || !height) return res.send({ error: 500, message: "Need a name and height" });
+  Breed.create({
+    id: uuidv4(),
+    name: name,
             height: height,
             weight: weight,
             life_span: life_span,
-            image: 'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B'
-        })
-        
-        //const dog = await Breed.findByPk(breed.id)
-            .then(breed => Breed.addTemperaments(temperament))
-            .then(r => res.send({ message: 'Breed created sucessfully' }))
-    } catch (err) {
-        console.log(err.message);
-    }
-};
+            image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B',
+  })
+    .then((breed) => {
+      return breed.addTemperaments(temperament);
+    })
+    .then(newRecipe => {
+      return res.json({
+        message: 'New breed created successfully',
+      });
+    })
+    .catch((error) => next(error));
+}
 
+// const addBreed= async  (req, res)=> {
+// 	const { name, height, weight, life_span, temperament } = req.body;
+    
+//     try {
+//         await Breed.create({
+//             id: uuidv4(),
+//             name: name,
+//             height: height,
+//             weight: weight,
+//             life_span: life_span,
+//             image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B'
+//         })
+        
+//         //const dog = await Breed.findByPk(breed.id)
+//             .then((breed) => breed.addTemperaments(temperament))
+//             .then(r => res.send({ message: 'New breed created successfully' }))
+//     } catch (err) {
+//         console.log(err.message);
+//     }
+// };
+    
+            
 
 // async function addBreed (req, res,next){
 //     const {name,weight, height, life_span, temperament} = req.body;

@@ -18,7 +18,7 @@ import Filter from './Filter/Filter';
 //     );
 //   }; 
 
-const renderCard=(card, id)=> {
+const renderCard=(card)=> {
   return (
       <div className='contenedor2' >{card.map((card) => {
       
@@ -28,7 +28,7 @@ const renderCard=(card, id)=> {
     
         <div className='breed-card'>
         
-          <Link to={`/home/${id}`}>
+          <Link to={'/home/:id'}>
                   <p className='name'>{card.name}</p>
                   
                   <img className='img' src={card.image}  width="360" height="240" alt=""/>

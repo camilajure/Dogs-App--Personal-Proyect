@@ -1,6 +1,5 @@
 import React, {  useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import './Search.css';
 import { getBreedsByName } from "../../actions/actions";
 
@@ -15,6 +14,7 @@ function handleChange(event) {
 function handleSubmit(event) {
     event.preventDefault();
     props.getBreedsByName(input.name);
+    // setInput(""); PARA BORRAR LA BUSQUEDA????????????
     }
 
     return (
@@ -23,6 +23,7 @@ function handleSubmit(event) {
             <div>
             
             <input
+            placeholder='Breed Name'
                 name="title"
                 type="text"
                 id="title"
@@ -30,7 +31,6 @@ function handleSubmit(event) {
                 value={input.name}
                 onChange={(e) => handleChange(e)}
             />
-           
         </div>
             <button type="submit">Search</button>
         </form>

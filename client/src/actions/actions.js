@@ -107,17 +107,39 @@ export function postBreed (breeds){
 
 
 //FILTROS!!
-export function ordenar(order, category) {
+export function orderAlph(value) {
 
-    return { type: order === 'asc' ? ORDER_ASC : ORDER_DESC, payload: category };
-  };
-  
+    if (value === 'ORDER_ASC') {
+		return {
+			type: 'ORDER_ASC',
+		};
+	} else {
+		return {
+			type: 'ORDER_DESC',
+		};
+	}
+}
 
+export function orderWeight(value) {
 
-export const sortByAlphabet = payload => ({
-    type: 'SORT_BY_ALPHABET',
-    payload
- });
+    if (value === 'ORDER_WEIGHTMAX') {
+		return {
+			type: 'ORDER_WEIGHTMAX',
+		};
+	} else {
+		return {
+			type: 'ORDER_WEIGHTMIN',
+		};
+	}
+}
+
+export function tempFilter(value){
+    return{
+    type: 'TEMP_FILTER',
+    payload: value,
+    }
+}
+
 
 
 
@@ -127,7 +149,8 @@ export const GET_BYNAME = 'GET_BYNAME';
 export const GET_TEMPERAMENT = 'GET_TEMPERAMENT';
 export const POST_BREED = 'POST_BREED';
 
-export const SORT_BY_ALPHABET = 'SORT_BY_ALPHABET';
-
 export const ORDER_ASC = 'ORDER_ASC';
 export const ORDER_DESC = 'ORDER_DESC';
+export const ORDER_WEIGHTMAX = 'ORDER_WEIGHTMAX';
+export const ORDER_WEIGHTMIN = 'ORDER_WEIGHTMIN';
+export const TEMP_FILTER = 'TEMP_FILTER';

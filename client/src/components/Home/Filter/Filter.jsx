@@ -1,75 +1,99 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { ordenar } from '../../../actions/actions';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getTemperament, orderAlph, tempFilter, orderWeight } from '../../../actions/actions';
 
-function Filter() {
+    function Filter() {
+        useEffect(() => {
+            dispatch(getTemperament());
+        }, []);
 
 
-    // function sortAsc(arr, field) {
-    //    return arr.sort(function (a, b) {
-    //        if (a[field] > b[field]) {
-    //            return 1;
-    //        }
-    //        if (b[field]> a[field]) {
-    //            return -1;
-    //        }
-    //        return 0;
-    //    })
-    // }
+    const temperament = useSelector((state) => state.temperament);
+    const breeds = useSelector((state) => state.breeds);
+    let [filterTemp, setFilterTemp] = useState('');
+    let [filterTempBy, setFilterTempBy] = useState([]);
+    const dispatch = useDispatch();
 
-    
-// function sortDesc(arr, field) {
-//    return arr.sort(function (a, b) {
-//        if (a[field] > b[field]) {
-//            return -1;
-//        }
-//        if (b[field]> a[field]) {
-//            return 1;
-//        }
-//        return 0;
-//    })
-// }
-const [selectedOrd, setSelectedOrd] = useState('asc');
-const [selectedCat, setSelectedCat] = useState('name')
 
-const dispatch = useDispatch();
-
-function handleChange(ev) {
-    if (ev.target.value === 'name' || ev.target.value === 'weight') {
-        setSelectedCat(ev.target.value);
-    } else {
-
-        setSelectedOrd(ev.target.value);
+function handleSubmit(e) {
+    e.preventDefault();
+    setFilterTempBy([...filterTempBy, filterTemp]);
+    handleClick();
     }
+//temperamento
+function handleChangeTemperament(e) {
+    setFilterTemp(e.target.value);
+}
+//alfabetico
+function handleChange(e) {
+    dispatch(orderAlph(e.target.value));
+}
+//peso
+function handleChangeWeight(e) {
+    dispatch(orderWeight(e.target.value));
 }
 
-function handlesubmit(ev) {
-    ev.preventDefault();
+function handleClick() {
+    let filteredBreeds = [];
+    breeds?.forEach((b) => {
+        if (b.id.length > 6) {
+            b.temperament.map((t) => (t.name === filterTemp ? filteredBreeds.push(b) : null));
+        } else {
+            if (b.temperament.includes(filterTemp)) {
+                filteredBreeds.push(b);
+            } else {
+                return null;
+            }
+        }
+    });
 
-    dispatch(ordenar(selectedOrd, selectedCat));
-
+    dispatch(tempFilter(filteredBreeds));
 }
-
-
 
     return (
-        <div onsubmit= {handlesubmit}>
-            <select onChange={handleChange} value={selectedOrd} name="by">
-                <option value="" disabled selected>Order by</option>
-                    <option value='asc'>Alphabet - A-Z</option>
-                    <option value='desc'>Alphabet - Z-A</option>
-            </select>
+        <div >
 
-            <select onChange={handleChange} >
-                <option value="" disabled selected>Temperament</option>
-                    <option></option>
+            {/* FILTRO POR ALPHABETICO */}
+            <form>
+            <select onChange={handleChange} value='' name="by">
+                <option value="" disabled selected>Order by Alphabet</option>
+                    <option value='ORDER_ASC'>Alphabet - A-Z</option>
+                    <option value='ORDER_DESC'>Alphabet - Z-A</option>
             </select>
+            </form>
 
-            <select onChange={handleChange} value={selectedCat} name="order" >
-                <option value="" disabled selected>Breed</option>
-                    <option></option>
+            {/* //FILTRO POR PESO WEIGHT  */}
+            <form>
+            <select onChange={handleChangeWeight} value='' name="by">
+                <option value="" disabled selected>Order by Weight</option>
+                    <option value='ORDER_WEIGHTMAX'>Weight Min. - Max.</option>
+                    <option value='ORDER_WEIGHTMIN'>Weight Max -  Min.</option>
             </select>
-            <button type='submit'>Sort</button>
+            </form>
+
+
+        <form onSubmit={handleSubmit}>
+            <select onChange={handleChangeTemperament} value={filterTemp} name="temperament">
+                {/* <option value='' disabled selected>Temperament</option> */}
+                <option>All Temperaments</option>
+					{temperament.map((e) => (
+						<option value={e.name} key={e.id}>
+							{e.name}
+						</option>
+					))}
+            </select>
+</form>
+<form>
+            <select onChange={handleSubmit} value='' name="order" >
+                <option value="" disabled selected>All Breeds</option>
+                    <option>All Breeds</option>
+                    {breeds.map((e) => (
+						<option value={e.name} key={e.id}>
+							{e.name}
+						</option>
+                        ))}
+            </select>
+            </form>
         </div>
     )
 }

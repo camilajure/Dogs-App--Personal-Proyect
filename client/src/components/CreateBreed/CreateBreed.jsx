@@ -6,7 +6,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { connect } from 'react-redux';
 
 function CreateBreed(props) {
-    const [agrega, setAgrega] = React.useState({
+    const [input, setInput] = React.useState({
 		name: '',
 		heightMax: '',
         heightMin: '',
@@ -16,13 +16,7 @@ function CreateBreed(props) {
 		temperament: [],
         image:''
 	});
-    // function getAllBreedsFunction(){
-    //     getAllBreeds()
-    //   }
-   
-    //    useEffect(() => {
-    //      getAllBreedsFunction()
-    //      }, [])
+
 function createBreedFunction(){
     postBreed()
     getTemperament();
@@ -32,14 +26,17 @@ useEffect(() =>{
 },[])
 
     function handleChange(e){
-        setAgrega(e.target.value)
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
     }
 
     function handleSubmit  (e){
         e.preventDefault();
         
                 
-                setAgrega({
+                setInput({
             name: '',
             heightMax: '',
             heightMin: '',
@@ -50,23 +47,14 @@ useEffect(() =>{
         });
             }
 function handleSelect(e){
-    if (agrega.temperament.length >= 3) {
+    if (input.temperament.length >= 3) {
         alert('Select only 3 temperaments.');
     } else {
-        setAgrega((prev) => ({ ...prev, temperament: [...prev.temperament, parseInt(e.target.value)] }));
+        setInput((prev) => ({ ...prev, temperament: [...prev.temperament, parseInt(e.target.value)] }));
     }
 }
 
-//     const [input, setInput] = React.useState({
-// 		name: '',
-// 		heightMax: '',
-//         heightMin: '',
-// 		weightMax: '',
-//         weightMin: '',
-// 		lifeSpan: '',
-// 		temperament: [],
-//         image:''
-// 	});
+
     
     const temperament = useSelector((input) => input.temperament);
     const dispatch = useDispatch();
@@ -138,7 +126,7 @@ function handleSelect(e){
                     id="title"
                     autoComplete="on"
                     placeholder='Name breed'
-                    value={agrega.name}
+                    value={input.name}
                     onChange= {handleChange}/>
                 
                 <p>Height</p>
@@ -146,13 +134,13 @@ function handleSelect(e){
                     id=""
                     autoComplete="off"
                     placeholder='Height Maximun'
-                    value={agrega.heightMax}
+                    value={input.heightMax}
                     onChange= {handleChange}/>
                 <input type="number"
                     id="title"
                     autoComplete="off"
                     placeholder='Height Minimun'
-                    value={agrega.heightMin}
+                    value={input.heightMin}
                     onChange= {handleChange}/>
 
                 <p>Weight Kg</p>
@@ -160,13 +148,13 @@ function handleSelect(e){
                     id=""
                     autoComplete="off"
                     placeholder='Weight Maximun'
-                    value={agrega.weightMax}
+                    value={input.weightMax}
                     onChange= {handleChange}/>
                 <input type="number"
                     id="title"
                     autoComplete="off"
                     placeholder='Weight Minimun'
-                    value={agrega.weightMin}
+                    value={input.weightMin}
                     onChange= {handleChange}/>
 
                     <p>Life span</p>
@@ -174,7 +162,7 @@ function handleSelect(e){
                     id="title"
                     autoComplete="off"
                     placeholder='Years of Life Span'
-                    value={agrega.lifeSpan}
+                    value={input.lifeSpan}
                     onChange= {handleChange}/>
 
                 <p>Temperaments</p>
@@ -182,32 +170,26 @@ function handleSelect(e){
 						name='temperaments'
 						onChange={(e) => handleSelect(e)}
 						required
-						value={agrega.temperament}
-						
-					>
+						value={input.temperament}
+					>{temperament.map((e) => (
+						<option value={e.name} key={e.id}>
+							{e.name}
+						</option>
+                        ))}
 						<option>Select</option>
 					</select>
-                    {agrega.temperament.map((t) => (
+                    {input.temperament.map((t) => (
 						<p id={t} >
 							{getNames([t])}{' '}
 							<button type='button' >
-								x
+								Delete
 							</button>
 						</p>
 					))}
 
-<ul>
 
-          {
-            temperament.map((temperament) => 
-              <li key={temperament.id}>
-                <button onClick={() => dispatch(getTemperament(temperament.id))}>Eliminar</button>
-              </li>
-            )
-          }
-        </ul> 
         <p>Image</p>
-              <input type="url" onChange={handleChange} value={agrega.image} name="Image" placeholder="Url"/>
+              <input type="url" onChange={handleChange} value={input.image} name="Image" placeholder="Url"/>
 
                 <p>Create</p>
                 

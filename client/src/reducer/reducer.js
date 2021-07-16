@@ -1,5 +1,5 @@
-import {GET_BREEDS, GET_ID, GET_BYNAME, GET_TEMPERAMENT,POST_BREED, SORT_BY_ALPHABET, ORDER_ASC,
-    ORDER_DESC } from '../actions/actions';
+import {GET_BREEDS, GET_ID, GET_BYNAME, GET_TEMPERAMENT,POST_BREED, ORDER_ASC,
+    ORDER_DESC, TEMP_FILTER, ORDER_WEIGHTMAX, ORDER_WEIGHTMIN } from '../actions/actions';
 
 const initialState = {
     breeds: [],
@@ -31,26 +31,42 @@ export default function reducer(state = initialState, action) {
         breeds: state.breeds.concat(action.payload),
     }
     
-case SORT_BY_ALPHABET:
-//    let sortedArr = action.payload.direction === "asc" ?
-    //    sortAsc(state.filteredProducts, 'name') :
-    //    sortDesc(state.filteredProducts, 'name');
- 
-   return {
-       ...state,
-    //    filteredProducts: sortedArr
-   }
-   case ORDER_ASC: return{
-    ...state,
-    filteredBreeds: [...state.filteredBreeds].sort((a, b) => (a[action.payload].toLowerCase() > b[action.payload].toLowerCase()) ? 1 : -1),
+
+    case ORDER_ASC: return{
+        ...state,
+        breeds: state.breeds
+        .filter((b) => b.name !== null)
+        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)),
     
 }
 
-case ORDER_DESC: return{
+    case ORDER_DESC: return{
+        ...state,
+        breeds: state.breeds
+		    .filter((b) => b.name !== null)
+			.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)),
+}
+
+case ORDER_WEIGHTMAX: return{
     ...state,
-    filteredBreeds: [...state.filteredBreeds].sort((a, b) => (a[action.payload].toLowerCase() < b[action.payload].toLowerCase()) ? 1 : -1),
-    
+    breeds: state.breeds
+    .filter((b) => b.weight !== null)
+    .sort((a, b) => (a.weight > b.weight ? 1 : -1)),
+}
+
+case ORDER_WEIGHTMIN: return{
+    ...state,
+    breeds: state.breeds
+    .filter((b) => b.weight !== null)
+    .sort((a, b) => (a.weight < b.weight ? 1 : -1)),
+}
+
+    case TEMP_FILTER: return {
+        ...state,
+        filteredBreeds: state.payload
 }
     default: return {...state}
     }
 }
+
+

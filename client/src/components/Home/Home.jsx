@@ -10,7 +10,7 @@ function Home() {
         <div className= 'body3'>
             
              
-            <PaginationComponent />
+            <PaginationComponent  />
         </div>
     )
 }

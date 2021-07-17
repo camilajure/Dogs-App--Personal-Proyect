@@ -5,7 +5,7 @@ import { getBreedsByName } from "../../actions/actions";
 
 function Search (props) {
 
-    const [input, setInput] = useState({name: ""});
+const [input, setInput] = useState({name: ""});
 
 function handleChange(event) {
     setInput({ name: event.target.value });
@@ -14,7 +14,7 @@ function handleChange(event) {
 function handleSubmit(event) {
     event.preventDefault();
     props.getBreedsByName(input.name);
-    // setInput(""); PARA BORRAR LA BUSQUEDA????????????
+     setInput({name:""});
     }
 
     return (
@@ -30,9 +30,9 @@ function handleSubmit(event) {
                 autoComplete="off"
                 value={input.name}
                 onChange={(e) => handleChange(e)}
-            />
+            /><button type="submit">Search</button>
         </div>
-            <button type="submit">Search</button>
+            
         </form>
     </div>
     );

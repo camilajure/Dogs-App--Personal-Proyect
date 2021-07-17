@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getTemperament, orderAlph, tempFilter, orderWeight } from '../../../actions/actions';
-
+import { getTemperament, orderAlph, tempFilter, orderWeight, getBreedsByName } from '../../../actions/actions';
+import './Filter.css';
     function Filter() {
         useEffect(() => {
-            dispatch(getTemperament());
+            dispatch(getTemperament())
+            dispatch(getBreedsByName())
         }, []);
 
 
     const temperament = useSelector((state) => state.temperament);
     const breeds = useSelector((state) => state.breeds);
     let [filterTemp, setFilterTemp] = useState('');
-    let [filterTempBy, setFilterTempBy] = useState([]);
+    const [input, setInput] = useState({name: ""});
     const dispatch = useDispatch();
 
 
 function handleSubmit(e) {
     e.preventDefault();
-    setFilterTempBy([...filterTempBy, filterTemp]);
+    getBreedsByName(input.name);
     handleClick();
+    setInput({name:""});
     }
 //temperamento
 function handleChangeTemperament(e) {
@@ -32,29 +34,19 @@ function handleChange(e) {
 function handleChangeWeight(e) {
     dispatch(orderWeight(e.target.value));
 }
+function handleInput(event) {
+    setInput({ name: event.target.value });
+    }
 
 function handleClick() {
-    let filteredBreeds = [];
-    breeds?.forEach((b) => {
-        if (b.id.length > 6) {
-            b.temperament.map((t) => (t.name === filterTemp ? filteredBreeds.push(b) : null));
-        } else {
-            if (b.temperament.includes(filterTemp)) {
-                filteredBreeds.push(b);
-            } else {
-                return null;
-            }
-        }
-    });
-
-    dispatch(tempFilter(filteredBreeds));
+    
 }
 
     return (
         <div >
 
             {/* FILTRO POR ALPHABETICO */}
-            <form>
+            <form className="boton">
             <select onChange={handleChange} value='' name="by">
                 <option value="" disabled selected>Order by Alphabet</option>
                     <option value='ORDER_ASC'>Alphabet - A-Z</option>
@@ -63,7 +55,7 @@ function handleClick() {
             </form>
 
             {/* //FILTRO POR PESO WEIGHT  */}
-            <form>
+            <form className="boton">
             <select onChange={handleChangeWeight} value='' name="by">
                 <option value="" disabled selected>Order by Weight</option>
                     <option value='ORDER_WEIGHTMAX'>Weight Min. - Max.</option>
@@ -72,8 +64,8 @@ function handleClick() {
             </form>
 
 
-        <form onSubmit={handleSubmit}>
-            <select onChange={handleChangeTemperament} value={filterTemp} name="temperament">
+        <form className="boton" onSubmit={handleSubmit}>
+            <select onChange={handleChangeTemperament} value='' name="temperament">
                 {/* <option value='' disabled selected>Temperament</option> */}
                 <option>All Temperaments</option>
 					{temperament.map((e) => (
@@ -83,8 +75,8 @@ function handleClick() {
 					))}
             </select>
 </form>
-<form>
-            <select onChange={handleSubmit} value='' name="order" >
+<form className="boton" onChange={(e) => handleSubmit(e)}>
+            <select onChange={(e) => handleInput(e)} value='' name="order" >
                 <option value="" disabled selected>All Breeds</option>
                     <option>All Breeds</option>
                     {breeds.map((e) => (

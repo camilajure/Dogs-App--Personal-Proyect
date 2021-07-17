@@ -1,36 +1,32 @@
 .breed-card {
   border: solid 2px ;
-  width:350px;
+  width:300px;
   padding:10px;
-  margin:20px;
-  height: 450px;
-  background-color:pink;
-  opacity:100%;
+  margin:10px;
+  height: 350px;
+  background-color: #EEBCB1;
+  opacity:95%;
   border-radius: 25px;
-  margin-top: 0px !important;
+  margin-top: 15px !important;
   padding-top: 0px !important;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  
-    flex-direction:row;
-    justify-content: space-evenly;
-    align-items: center;
   }
   
   .contenedor2{
-    flex-direction: row;
+    flex-direction:row;
+    flex-wrap: wrap;
+  justify-content: space-evenly;
     display:flex;
+    align-items: center;
 }
     
   
   
   
   
-  .details {
-    padding: 50px 0 0 50px;
-  }
-  
+ 
   .name {
       color:grey;
       font-size: 20px;
@@ -38,17 +34,10 @@
       line-height: normal;
       position: relative;
   }
-  .name span {
-      margin-left: 12px;
-      background: #C4AF3D;
-      border-radius: 5px;
-      color: #544C21;
-      font-size: 14px;
-      padding: 0px 4px;
-    }
+ 
   .description {
     bottom: 0px;
-    height: 200px;
+    height: 50px;
     font-size: 16px;
     line-height: 26px;
     color:grey;
@@ -56,8 +45,4 @@
   }
   
   
-  .img img {
-    width: 30px;
-    height: 50px;
-    padding-left: 30px;
-  }
+ 

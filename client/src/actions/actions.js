@@ -91,15 +91,15 @@ export function getTemperament(id){
 //     .catch(err=>console.log(err));
 // }
 
-export function postBreed (breeds){
+export function postBreed (){
     return (dispatch)=>{
-    return axios.post('http://localhost:3001/breeds', breeds, {
+    return axios.post('http://localhost:3001/breeds', {
         headers: {"Content-Type": "application/json"},
     })
     .then((response) =>{
         dispatch({
             type: 'POST_BREED',
-            payload: response.data.createBreed
+            payload: response.data
         })
     });
 }

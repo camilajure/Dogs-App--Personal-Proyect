@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Filter from './Filter/Filter';
 
 
+
 const renderCard=(card)=> {
   return (
       <div className='contenedor2' >{card.map((card) => {
@@ -20,7 +21,7 @@ const renderCard=(card)=> {
           <Link to={`/home/${card.id}`}>
                   <p className='name'>{card.name}</p>
                   
-                  <img className='img' src={card.image}  width="360" height="240" alt=""/>
+                  <img className='img' src={card.image}  width="300" height="200" alt=""/>
                   <p className='description'>{card.temperament}</p>
                   </Link>
                   

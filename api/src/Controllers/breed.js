@@ -28,8 +28,8 @@ const {v4: uuidv4} = require('uuid');
 //     })
 //     .catch((error) => next(error));
 // }
-
-// const addBreed= async  (req, res)=> {
+// ESTE DEBERIA FUNCOINAR CON LA TABLA INTERMEDIA
+//  const addBreed= async  (req, res)=> {
 // 	const { name, height, weight, life_span, temperament } = req.body;
     
 //     try {
@@ -53,7 +53,7 @@ const {v4: uuidv4} = require('uuid');
 
 
 
-//FUNCIONA PERO NO ME CREA LA TABLA INTERMADIA
+//FUNCIONA PERO  ME CREA LA TABLA INTERMADIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 async function addBreed(req, res, next) {
 	//const id = uuidv4();
 	const {name,weight, height, life_span, temperament} = req.body
@@ -65,8 +65,10 @@ async function addBreed(req, res, next) {
 			weight: weight, 
 			height: height, 
 			life_span: life_span, 
-			temperament:temperament
+			
 		});
+
+		await createdBreed.addTemperament(temperament)
 		if(createdBreed){
 			return res.json({message: 'Breed created sucessfully',
 				data: createdBreed}); 

@@ -3,7 +3,7 @@ const axios = require('axios');
 const { API_KEY } = process.env;
 const { Breed, Temperament } = require('../db');
 const {v4: uuidv4} = require('uuid');
-
+// const { Sequelize } = require("sequelize")
 
 
 //post
@@ -65,7 +65,8 @@ async function addBreed(req, res, next) {
 			weight: weight, 
 			height: height, 
 			life_span: life_span, 
-			
+			image: 'https://bit.ly/36J26Nu',
+			db: true
 		});
 
 		await createdBreed.addTemperament(temperament)
@@ -105,10 +106,14 @@ async function addBreed(req, res, next) {
 
 //  funcina abajo
 const getAllBreed = async (req, res) => {
-	const raza = req.query.name;
-	if (raza) {
+	const r = req.query.name;
+// const raza= r.toLowerCase();
+	if (r) {
+		const raza= r.toLowerCase()
 		const breedDataBase = Breed.findAll({
 			where: {
+				// name:{
+				// [Sequelize.Op.iLike]: `%${query}%`, }
 				name: raza,
 			},
 			include: {
@@ -176,7 +181,7 @@ const getAllBreed = async (req, res) => {
 		}
 	}
 };
-
+// .toLowerCase().includes(raza)
 
 
 async function getAllById(req, res, next){

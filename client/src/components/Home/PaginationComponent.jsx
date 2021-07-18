@@ -9,6 +9,7 @@ import Filter from './Filter/Filter';
 
 
 const renderCard=(card)=> {
+    
   return (
       <div className='contenedor2' >{card.map((card) => {
       
@@ -17,12 +18,14 @@ const renderCard=(card)=> {
         <div className='container'>
     
         <div className='breed-card'>
-        
+      
           <Link to={`/home/${card.id}`}>
                   <p className='name'>{card.name}</p>
                   
                   <img className='img' src={card.image}  width="300" height="200" alt=""/>
-                  <p className='description'>{card.temperament}</p>
+
+                  {/* para que me muestre los temperamentos de los nuevos perros creados */}
+                  <p className='description'>{card.temperament ? card.temperament : card.temperaments.map(temperament => temperament.name).join(", ")}</p> 
                   </Link>
                   
                   </div>
@@ -38,15 +41,31 @@ const renderCard=(card)=> {
 //`/home/${id}`
 
   
-  function PaginationComponent({breeds, getAllBreeds}) {
-   
-   function getAllBreedsFunction(){
-     getAllBreeds()
-   }
+  function PaginationComponent({filteredBreeds,breeds, getAllBreeds,breedsbyname}) {
+  
+  function getAllBreedsFunction(){
+    getAllBreeds()
+  }
 
     useEffect(() => {
-      getAllBreedsFunction()
-      }, [])
+     getAllBreeds()
+
+      if( filteredBreeds.length > 0 ) {
+        setCard(filteredBreeds)
+      }
+      else if (breedsbyname.length > 0 ){
+        setCard(breedsbyname)
+      }
+      
+      else{
+        setCard(breeds)
+      }
+      }, [filteredBreeds, breeds,breedsbyname])
+
+
+const [card,setCard]= useState(breeds);
+
+
     const [currentPage, setcurrentPage] = useState(1);
     const [itemsPerPage, setitemsPerPage] = useState(8);
   
@@ -65,7 +84,7 @@ const renderCard=(card)=> {
   
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = breeds.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = card.slice(indexOfFirstItem, indexOfLastItem);
   
     const renderPageNumbers = pages.map((number) => {
       if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
@@ -114,12 +133,13 @@ const renderCard=(card)=> {
       pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
     }
   
-    console.log(breeds)
+    
   
     return (
       <>
       
       <Filter/>
+
         {renderCard(currentItems)}
   
         <ul className="pageNumbers">
@@ -153,14 +173,16 @@ const renderCard=(card)=> {
 
   function mapStateToProps(state) {
     return {
-        breeds: state.breeds
+        breeds: state.breeds,
+        filteredBreeds: state.filteredBreeds,
+        breedsbyname: state.breedsbyname
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
       getAllBreeds: breeds => dispatch(getAllBreeds(breeds)),
-        
+      
     };
 }
   export default connect(mapStateToProps, mapDispatchToProps) (PaginationComponent);

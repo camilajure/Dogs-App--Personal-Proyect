@@ -43,6 +43,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     }, 
+    db:{
+      type: DataTypes.BOOLEAN,
+    }
 
 
   });

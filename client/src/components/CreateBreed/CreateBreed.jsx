@@ -8,11 +8,9 @@ import { connect } from 'react-redux';
 function CreateBreed(props) {
     const [input, setInput] = useState({
 		name:'',
-		heightMax:'',
-        heightMin:'',
-		weightMax:'',
-        weightMin:'',
-		lifeSpan:'',
+		height:'',
+        weight:'',
+		life_span:'',
 		temperament: [],
         image:''
 	});
@@ -32,38 +30,66 @@ function CreateBreed(props) {
         })
     }
 
-    function handleSubmit  (e){
+
+
+   async function handleSubmit  (e){
         e.preventDefault();
-        if (!errors.name && !errors.weight && !errors.height && !errors.life_span) {
-        axios
-        .post('http://localhost:3001/breeds', input)
-        .then((r) => {
-            alert('Breed created successfully!');
-                
-                setInput({
-            name: '',
-            heightMax: '',
-            heightMin: '',
-            weightMax: '',
-            weightMin: '',
-            lifeSpan: '',
-            temperament: [],
-        })
+        try{
+        //     let {name,height,weight, life_span, image}= input
+        // let body= {name, height, weight, life_span, temperament, image}
+
+
+
+            await fetch('http://localhost:3001/breeds',
+            {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(input),
             })
-            .catch((res) => alert('We could not create breed. Please try again.'));
+            alert('Breed created successfully!');
+        } catch(err){
+            console.log(err.message)
+            alert('We could not create breed. Please try again.');
         }
-     else {
-			alert('Something went wrong. Please try again.');
-		}
-    }
+        setInput({
+                    name: '',
+                    height:'',
+                    weight: '',
+                    life_span: '',
+                    temperament: [],
+                })
+                
+
+    //     if (!errors.name && !errors.weight && !errors.height && !errors.life_span) {
+    //     axios
+    //     .post('http://localhost:3001/breeds', input)
+    //     .then((r) => {
+    //         alert('Breed created successfully!');
+                
+    //             setInput({
+    //         name: '',
+    //         heightMax: '',
+    //         heightMin: '',
+    //         weightMax: '',
+    //         weightMin: '',
+    //         lifeSpan: '',
+    //         temperament: [],
+    //     })
+    //         })
+    //         .catch((res) => alert('We could not create breed. Please try again.'));
+    //     }
+    // else {
+	// 		alert('Something went wrong. Please try again.');
+	// 	}
+     }
 
             
 
 
-              function handleDispatch() {
-                props.getTemperament()
+        function handleDispatch() {
+            props.getTemperament()
                 
-              }
+        }
 
 
 function handleSelect(e){
@@ -73,10 +99,6 @@ function handleSelect(e){
         setInput((prev) => ({ ...prev, temperament: [...prev.temperament, parseInt(e.target.value)] }));
     }
 }
-
-
-    
-   
 
 
 
@@ -105,7 +127,7 @@ function handleSelect(e){
     return (
         <div className= 'body2'>
             <h1>CREATE BREED</h1> 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e)=> handleSubmit(e)}>
                 
                 <div>
                 <p>Name</p>
@@ -119,43 +141,43 @@ function handleSelect(e){
                     onChange= {handleChange}/>
             </div>
 
-                <p>Height</p>
-                <input type="number"
-                name='heightMax'
+                <p>Height  Min-Max</p>
+                <input type="text"
+                name='height'
                     autoComplete="off"
-                    placeholder='Height Maximun'
-                    value={input.heightMax}
+                    placeholder='Height Min-Max'
+                    value={input.height}
                     onChange= {handleChange}/>
-
-
+                    
+{/* 
                 <input type="number"
                     name='heightMin'
                     autoComplete="off"
                     placeholder='Height Minimun'
                     value={input.heightMin}
-                    onChange= {handleChange}/>
+                    onChange= {handleChange}/> */}
 
-                <p>Weight Kg</p>
-                <input type="number"
-                    name='weightMax'
+                <p>Weight Kg   Min-Max </p>
+                <input type="text"
+                    name='weight'
                     autoComplete="off"
-                    placeholder='Weight Maximun'
-                    value={input.weightMax}
+                    placeholder='Weight Min-Max'
+                    value={input.weight}
                     onChange= {handleChange}/>
-
+{/* 
                 <input type="number"
                     name='weightMin'
                     autoComplete="off"
                     placeholder='Weight Minimun'
                     value={input.weightMin}
-                    onChange= {handleChange}/>
+                    onChange= {handleChange}/> */}
 
                     <p>Life span</p>
                 <input type="number"
-                    name='lifeSpan'
+                    name='life_span'
                     autoComplete="off"
                     placeholder='Years of Life Span'
-                    value={input.lifeSpan}
+                    value={input.life_span}
                     onChange= {handleChange}/>
 
                 <p>Temperaments</p>
@@ -174,19 +196,20 @@ function handleSelect(e){
                     //     ))} */}
 						<option>Select</option>
 					</select>
+                    <div>
                     {input.temperament.map((t) => (
 						<p id={t} >
 							{getNames([t])}{' '}
                             
-							<button type='button'onClick={() => deleteTemp(t.id)} >
+							<button type='button'onClick={(e) => deleteTemp(e, t)} >
 								Delete
 							</button>
 						</p>
 					))}
+</div>
 
-
-        <p>Image</p>
-              <input type="url" onChange={handleChange} value={input.image} name="image" placeholder="Url"/>
+        {/* <p>Image</p>
+              <input type="url" onChange={handleChange} value={input.image} name="image" placeholder="Url"/> */}
 
                 <p>Create</p>
                 
@@ -197,9 +220,9 @@ function handleSelect(e){
 }
 function mapStateToProps(state) {
     return {
-      temperament: state.temperament
+        temperament: state.temperament
     }
-  }
+    }
 
 function mapDispatchToProps(dispatch){
     return{

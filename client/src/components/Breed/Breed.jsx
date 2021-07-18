@@ -23,7 +23,7 @@ const dispatch = useDispatch();
     <img src={props.breedsDetail.image} width="360" height="240" alt="" />
     <div >
         <div ><p>Name:</p><p>{props.breedsDetail.name}</p></div>
-        <div ><p>Temperament:</p><p>{props.breedsDetail.temperament}</p></div>
+        {/* <div ><p>Temperament:</p><p>{props.breedsDetail.temperament ? props.breedsDetail.temperament : props.breedsDetail.temperaments.map(temperament => temperament.name).join(", ")}</p></div> */}
         <div ><p>Weight:</p><p>{props.breedsDetail.weight}</p></div>
         <div ><p>Height:</p><p>{props.breedsDetail.height}</p></div>
         <div ><p>Life span:</p><p>{props.breedsDetail.life_span}</p></div>

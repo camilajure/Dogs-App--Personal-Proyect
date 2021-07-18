@@ -1,7 +1,8 @@
 
 .body{
     /* background: url('../../contenidoestilos/doginicio3.gif'); */
-    background: burlywood;
+    background: url('../../contenidoestilos/start.jpg');
+            /* background: burlywood; */
     background-repeat: no-repeat;
 	background-size: cover;
 	margin-top: 0%;

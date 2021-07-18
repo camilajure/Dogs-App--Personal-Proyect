@@ -140,6 +140,19 @@ export function tempFilter(value){
     }
 }
 
+export function getCreateBreedsFromDb(value) {
+	if (value === 'DB') {
+		return {
+			type: 'DB',
+		};
+	} else if (value === 'API'){
+		return {
+			type: 'API',
+		};
+	}else {
+		return (getAllBreeds())
+	}
+}
 
 
 
@@ -154,3 +167,5 @@ export const ORDER_DESC = 'ORDER_DESC';
 export const ORDER_WEIGHTMAX = 'ORDER_WEIGHTMAX';
 export const ORDER_WEIGHTMIN = 'ORDER_WEIGHTMIN';
 export const TEMP_FILTER = 'TEMP_FILTER';
+export const DB = 'DB';
+export const API= 'API';

@@ -1,11 +1,26 @@
 import {GET_BREEDS, GET_ID, GET_BYNAME, GET_TEMPERAMENT,POST_BREED, ORDER_ASC,
-    ORDER_DESC, TEMP_FILTER, ORDER_WEIGHTMAX, ORDER_WEIGHTMIN } from '../actions/actions';
+    ORDER_DESC, TEMP_FILTER, ORDER_WEIGHTMAX, ORDER_WEIGHTMIN, DB, API } from '../actions/actions';
 
 const initialState = {
     breeds: [],
     temperament: [],
     breedsDetail :{},
     filteredBreeds: [],
+    breedsbyname:[]
+    
+}
+
+//tempe / todos breeds
+function filterTemperament (breeds, temperament){
+    let filteredBreeds =[]
+    
+if (temperament  === 'All Temperaments') return breeds
+else{
+filteredBreeds = breeds.filter(e => e.temperament.includes(temperament))
+// if (typeof temperament === 'string') temperament.split(,)
+} 
+return filteredBreeds
+
 }
 
 export default function reducer(state = initialState, action) {
@@ -24,7 +39,7 @@ export default function reducer(state = initialState, action) {
     }
     case  GET_BYNAME: return {
         ...state,
-        breeds: action.payload,
+        breedsbyname: action.payload,
     }
     case POST_BREED: return{
         ...state,
@@ -63,8 +78,16 @@ case ORDER_WEIGHTMIN: return{
 
     case TEMP_FILTER: return {
         ...state,
-        filteredBreeds: state.payload
+        filteredBreeds: filterTemperament(state.breeds, action.payload)
 }
+    case DB: return {
+		...state,
+		breeds: state.breeds.filter((b) => b.id.length > 6).sort((a, b) => (a.id > b.id ? 1 : -1)),
+};
+	case API: return {
+		...state,
+		breeds: state.breeds.filter((b) => b.id < 500),
+};
     default: return {...state}
     }
 }

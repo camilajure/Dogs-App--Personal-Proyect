@@ -3,56 +3,10 @@ const axios = require('axios');
 const { API_KEY } = process.env;
 const { Breed, Temperament } = require('../db');
 const {v4: uuidv4} = require('uuid');
-// const { Sequelize } = require("sequelize")
+
 
 
 //post
-// function addBreed(req, res, next) {
-//   const { name, height, weight, life_span, temperament } = req.body;
-//   if (!name || !height) return res.send({ error: 500, message: "Need a name and height" });
-//   Breed.create({
-//     id: uuidv4(),
-//     name: name,
-//             height: height,
-//             weight: weight,
-//             life_span: life_span,
-//             image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B',
-//   })
-//     .then((breed1) => {
-//       return breed1.addTemperaments(temperament);
-//     })
-//     .then(newRecipe => {
-//       return res.json({
-//         message: 'New breed created successfully',
-//       });
-//     })
-//     .catch((error) => next(error));
-// }
-// ESTE DEBERIA FUNCOINAR CON LA TABLA INTERMEDIA
-//  const addBreed= async  (req, res)=> {
-// 	const { name, height, weight, life_span, temperament } = req.body;
-    
-//     try {
-//         await Breed.create({
-//             id: uuidv4(),
-//             name: name,
-//             height: height,
-//             weight: weight,
-//             life_span: life_span,
-//             image:'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/149822040_3780080102085998_1361124862690929614_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=a26aad&_nc_ohc=X7mHRnKpbZUAX_k7U5O&tn=YLWcyZolDJVm5u7y&_nc_ht=scontent.fsfn4-1.fna&oh=32f8afb2e344737e50d599c0d191bc6f&oe=60E8D34B'
-//         })
-        
-//         //const dog = await Breed.findByPk(breed.id)
-//             .then(breed => Breed.addTemperaments(temperament))
-//             .then(r => res.send({ message: 'New breed created successfully' }))
-//     } catch (err) {
-//         console.log(err.message);
-//     }
-// };
-
-
-
-
 //FUNCIONA PERO  ME CREA LA TABLA INTERMADIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 async function addBreed(req, res, next) {
 	//const id = uuidv4();
@@ -78,33 +32,10 @@ async function addBreed(req, res, next) {
 		next(err);
 	}
 }
-// genres.forEach(async (genre) => {
-//     let genreThatMatchesDb = await Genre.findOne({
-//       where: {
-//         name: genre,
-//       },
-//     });
-//     game.addGenre(genreThatMatchesDb);
-//   });
+
 
 
 // GET TODAS
-// function getAllBreed(req, res, next){
-
-//     const breedApi= axios.get('https://api.thedogapi.com/v1/breeds');
-// const breedMine =   Breed.findAll()
-// Promise.all([breedApi, breedMine])
-//     .then(response => {
-//         let [breedApiRes, breedMineRes] = response
-//         return res.send(breedMineRes.concat(breedApiRes.data))
-//     })
-
-// 		.catch((err) => next(err));
-// }
-
-
-
-//  funcina abajo
 const getAllBreed = async (req, res) => {
 	const r = req.query.name;
 	
@@ -216,31 +147,9 @@ catch(error){
 	next(error)
 }
 }
-//     // catch (error) {
-//     //     if(error.response?.status === 404) {
-//     //         Breed.findByPk(req.params.id).then(breed => {
-//     //     if(breed) return res.send(breed)
-//     //         return res.sendStatus(404)
-//     // })
-//     // } else {
-//     //     res.status(500).send({ error: 'Ups!!! 😱' })
-// 	// 	// res.status(500).send({ img: 'https://scontent.fsfn4-1.fna.fbcdn.net/v/t1.6435-9/213878167_4203688373058500_520078069889842109_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=a26aad&_nc_ohc=YgbPo73GeloAX_8B1cH&_nc_ht=scontent.fsfn4-1.fna&oh=af8cd6439341aa50a08d0d50ea34af55&oe=60EBA26A' })
-//     //     }
-//     // }
-// }
 
 module.exports={
     getAllBreed,
     addBreed,
     getAllById
 }
-
-	// 	let arregloT=[]   
-    // if(data.temperament){
-    //     let temp=data.temperament
-    //     let temps=temp.split(',');
-    //     temps.forEach(t=>arregloT.push(t.trim()))//le quito espacio inicial y final
-    // }else{  
-    //     if(data.temperaments)
-    //     data.temperaments.forEach(t=>arregloT.push(t.name))
-    // }

@@ -44,12 +44,3 @@ module.exports={ getAllTemperament};
 
 
 
-// genres.forEach(async (genre) => {
-//     let genreThatMatchesDb = await Genre.findOne({
-//       where: {
-//         name: genre,
-//       },
-//     });
-//     game.addGenre(genreThatMatchesDb);
-//   });
-

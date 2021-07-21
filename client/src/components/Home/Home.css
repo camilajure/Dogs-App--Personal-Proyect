@@ -1,13 +1,8 @@
-.body3{
-    background: url('../../contenidoestilos/dogfood.jpg');
-    background-repeat:no-repeat;
-	background-size:cover ;
-	margin-top: 0%;
-	padding: 0%;
-    height: 100vh;
-    align-items: center;
-    box-sizing: border-box;
-    background-attachment: fixed;
+/* .body3{
+    background: url('../../contenidoestilos/dogfood.jpg') ;
+    background-repeat:space repeat;
+    
+
     background-size: 1920px 1400px;
     
-}
+} */

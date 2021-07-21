@@ -1,10 +1,10 @@
-.breed-card {
+/* .breed-card {
   border: solid 2px ;
   width:300px;
   padding:10px;
   margin:10px;
   height: 350px;
-  background-color: #EEBCB1;
+  background-color:#E8B1A1;
   opacity:95%;
   border-radius: 25px;
   margin-top: 15px !important;
@@ -12,37 +12,126 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  }
   
+
+  }
+  .breed-card:hover{
+    background-color:#D99B7D;
+  } */
   .contenedor2{
     flex-direction:row;
     flex-wrap: wrap;
   justify-content: space-evenly;
     display:flex;
     align-items: center;
-}
     
-  
-  
-  
-  
- 
-  .name {
+}
+ .name {
       color:grey;
       font-size: 20px;
       margin-bottom: 13px;
       line-height: normal;
       position: relative;
   }
- 
+ .image{
+   border-radius: 10px;
+ }
   .description {
-    bottom: 0px;
-    height: 50px;
+    
+    height: 25px;
     font-size: 16px;
-    line-height: 26px;
+    line-height: 20px;
     color:grey;
     
+  }
+  .descriptionDetails {
+    
+    height: 25px;
+    font-size: 16px;
+    line-height: 25px;
+    color:grey;
+    cursor: pointer;
+    text-align: right;
   }
   
   
  
+  .buttonMoreDetails{
+    margin-bottom: 25px;
+    border-radius: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    
+  }
+
+  .buttonMoreDetails:hover {
+    cursor: pointer;
+    background-color: #85868E;
+    
+}
+.breed-card{
+  
+  justify-content: center;
+  margin-top: 25px !important;
+  padding-top: 0px !important;
+  /* flex-direction:row;
+  flex-wrap: wrap; */
+  font-family: font-family;
+  border-radius: 0.5em;
+  box-shadow: 0 0 1em 0 rgba(51,51,51,0.25);
+  /* display: flex; */
+  max-width: 290px;
+  overflow: hidden;
+  /* -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  padding: 2em;
+  position: relative;
+       top: 50%; 
+      left: 2%;
+       z-index: 1; 
+  width: 80%;
+}
+.breed-card:before{
+  justify-content: center;
+  /* flex-direction:row;
+  flex-wrap: wrap; */
+  background: url('../../contenidoestilos/dogfood.jpg') center no-repeat;
+  background-size: cover;
+  content: '';
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
+  height: 100vh;
+  position: absolute;
+       top: 50%;
+      left: 50%;
+      z-index: -1;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+.breed-card:after{
+  justify-content: center;
+  /* flex-direction:row;
+  flex-wrap: wrap; */
+background: rgba(255,255,255,0.6);
+content: '';
+display: flex;
+height: 100%;
+position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+width: 100%;
+}
+/* 
+ .body3{
+    background: url('../../contenidoestilos/dogfood.jpg') center ;
+    background-repeat:space repeat;
+    
+
+    background-size: 1920px 1400px;
+    
+} */

@@ -9,8 +9,9 @@ function Home() {
     return (
         <div className= 'body3'>
             
-             
+            
             <PaginationComponent  />
+            
         </div>
     )
 }

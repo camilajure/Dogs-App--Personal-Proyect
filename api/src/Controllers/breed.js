@@ -107,6 +107,7 @@ async function addBreed(req, res, next) {
 //  funcina abajo
 const getAllBreed = async (req, res) => {
 	const r = req.query.name;
+	
 // const raza= r.toLowerCase();
 	if (r) {
 		const raza= r.toLowerCase()
@@ -122,7 +123,7 @@ const getAllBreed = async (req, res) => {
 		});
 
 		const api = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${raza}&apikey=${API_KEY}`);
-		
+	
 
 		const breed = api.data.map(async (b) => {
 			return {
@@ -156,6 +157,7 @@ const getAllBreed = async (req, res) => {
 			const api = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
 
 			const breed = api.data.map(async (b) => {
+				
 				return {
 					id: b.id || 'Id not found',
 					name: b.name || 'Name not found',
@@ -232,3 +234,13 @@ module.exports={
     addBreed,
     getAllById
 }
+
+	// 	let arregloT=[]   
+    // if(data.temperament){
+    //     let temp=data.temperament
+    //     let temps=temp.split(',');
+    //     temps.forEach(t=>arregloT.push(t.trim()))//le quito espacio inicial y final
+    // }else{  
+    //     if(data.temperaments)
+    //     data.temperaments.forEach(t=>arregloT.push(t.name))
+    // }

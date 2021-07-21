@@ -11,7 +11,10 @@ import Filter from './Filter/Filter';
 const renderCard=(card)=> {
     
   return (
-      <div className='contenedor2' >{card.map((card) => {
+      <div className='contenedor2' >{
+        card.length !== 0 ?
+        
+        card.map((card) => {
       
         return(
           <div className='detail'>
@@ -19,21 +22,26 @@ const renderCard=(card)=> {
     
         <div className='breed-card'>
       
-          <Link to={`/home/${card.id}`}>
+       
                   <p className='name'>{card.name}</p>
                   
-                  <img className='img' src={card.image}  width="300" height="200" alt=""/>
+                  {/* <button className = 'buttonMoreDetails'>More Details</button> */}
+                  
+                  
+                  <img className='image' src={card.image}  width="300" height="200" alt=""/>
 
                   {/* para que me muestre los temperamentos de los nuevos perros creados */}
-                  <p className='description'>{card.temperament ? card.temperament : card.temperaments.map(temperament => temperament.name).join(", ")}</p> 
+                  <p className='description'>Temperaments:</p>
+                  <p className='description'> { card.temperament  ? card.temperament : card.temperaments.map(temp => temp.name).join(', ')}</p> 
+                  <Link to={`/home/${card.id}`}>
+                  <p className='descriptionDetails'>More Details...</p>
                   </Link>
-                  
                   </div>
           </div>
           
           </div>
         )
-      })}
+      }): "Loading..."}
           
       </div>
   )
@@ -41,26 +49,30 @@ const renderCard=(card)=> {
 //`/home/${id}`
 
   
-  function PaginationComponent({filteredBreeds,breeds, getAllBreeds,breedsbyname}) {
+  function PaginationComponent({filteredBreeds,breeds, getAllBreeds}) {
   
-  function getAllBreedsFunction(){
+  // function getAllBreedsFunction(){
+  //   getAllBreeds()
+  // }
+  useEffect(() => {
     getAllBreeds()
-  }
-
+  },[])
+  
     useEffect(() => {
      getAllBreeds()
 
       if( filteredBreeds.length > 0 ) {
         setCard(filteredBreeds)
       }
-      else if (breedsbyname.length > 0 ){
-        setCard(breedsbyname)
-      }
-      
+      // else if (breeds.length > 0 ){
+      //   setCard(breeds)
+      // }
+      else if (filteredBreeds === 'All'){
+        setCard(breeds)}
       else{
         setCard(breeds)
       }
-      }, [filteredBreeds, breeds,breedsbyname])
+      }, [filteredBreeds])
 
 
 const [card,setCard]= useState(breeds);
@@ -69,8 +81,8 @@ const [card,setCard]= useState(breeds);
     const [currentPage, setcurrentPage] = useState(1);
     const [itemsPerPage, setitemsPerPage] = useState(8);
   
-    const [pageNumberLimit, setpageNumberLimit] = useState(8);
-    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(6);
+    const [pageNumberLimit, setpageNumberLimit] = useState(1);
+    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(1);
     const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
   
     const handleClick = (event) => {
@@ -81,6 +93,18 @@ const [card,setCard]= useState(breeds);
     for (let i = 1; i <= Math.ceil(breeds.length / itemsPerPage); i++) {
       pages.push(i);
     }
+
+  //  let cardtodas;
+
+    // if( filteredBreeds.length > 0 ) {
+    //  return cardtodas
+    // } else {
+    //   return cardtodas
+    // }
+  //   // 
+  //   filteredBreeds.length > 0
+  // ?(cardtodas = card)
+  // :(cardtodas =filteredBreeds)
   
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -137,9 +161,9 @@ const [card,setCard]= useState(breeds);
   
     return (
       <>
-      
+      <div className="body3">
       <Filter/>
-
+         
         {renderCard(currentItems)}
   
         <ul className="pageNumbers">
@@ -164,7 +188,7 @@ const [card,setCard]= useState(breeds);
             </button>
           </li>
         </ul>
-        
+        </div>
       </>
     );
   }
@@ -175,7 +199,7 @@ const [card,setCard]= useState(breeds);
     return {
         breeds: state.breeds,
         filteredBreeds: state.filteredBreeds,
-        breedsbyname: state.breedsbyname
+        
     };
 }
 

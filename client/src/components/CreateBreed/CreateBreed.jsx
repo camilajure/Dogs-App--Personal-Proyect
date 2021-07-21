@@ -2,8 +2,9 @@ import React, {  useEffect, useState } from 'react';
 import './CreateBreed.css';
 import {getBreeds, getTemperament, postBreed} from '../../actions/actions';
 import { useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+//import axios from 'axios';
 import { connect } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 function CreateBreed(props) {
     const [input, setInput] = useState({
@@ -15,12 +16,13 @@ function CreateBreed(props) {
         image:''
 	});
     const temperament = useSelector((input) => input.temperament);
-    const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
+    // const dispatch = useDispatch();
+    // const [errors, setErrors] = useState({});
+const history = useHistory();
 
     useEffect(() => {
-
-        handleDispatch();
+        getTemperament()
+        // handleDispatch();
       }, [])
 
     function handleChange(e){
@@ -35,12 +37,7 @@ function CreateBreed(props) {
    async function handleSubmit  (e){
         e.preventDefault();
         try{
-        //     let {name,height,weight, life_span, image}= input
-        // let body= {name, height, weight, life_span, temperament, image}
-
-
-
-            await fetch('http://localhost:3001/breeds',
+                await fetch('http://localhost:3001/breeds',
             {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
@@ -58,7 +55,8 @@ function CreateBreed(props) {
                     life_span: '',
                     temperament: [],
                 })
-                
+                history.push('/');
+            }
 
     //     if (!errors.name && !errors.weight && !errors.height && !errors.life_span) {
     //     axios
@@ -81,15 +79,15 @@ function CreateBreed(props) {
     // else {
 	// 		alert('Something went wrong. Please try again.');
 	// 	}
-     }
+     
 
             
 
 
-        function handleDispatch() {
-            props.getTemperament()
+        // function handleDispatch() {
+        //     props.getTemperament()
                 
-        }
+        // }
 
 
 function handleSelect(e){
@@ -114,36 +112,39 @@ function handleSelect(e){
                 return names;
             }
 
-            const deleteTemp = (id) => {
-                setInput({
-                    ...input,
-                    temperament: input.temperament.filter(temp => parseInt(temp) !== id)
-                })
-        
+            function deleteTemp  (e,t)  {
+                setInput((prev) => ({ ...prev, temperament: prev.temperament.filter((temp) => temp !== parseInt(t)) }));
             }
 
         
 
     return (
         <div className= 'body2'>
-            <h1>CREATE BREED</h1> 
+             
+            <div className= 'bodycard'>
             <form onSubmit={(e)=> handleSubmit(e)}>
                 
-                <div>
+                <div className="containerform">
+                <h1 >Create a New Breed</h1>
+
                 <p>Name</p>
                 <input type="text"
                     id="title"
+                    
                     name='name'
                     required="required"
                     autoComplete="on"
                     placeholder='Name breed'
                     value={input.name}
                     onChange= {handleChange}/>
-            </div>
-
+            
+                
                 <p>Height  Min-Max</p>
                 <input type="text"
                 name='height'
+                required="required"
+                min='0'
+                    max='3'
                     autoComplete="off"
                     placeholder='Height Min-Max'
                     value={input.height}
@@ -160,10 +161,14 @@ function handleSelect(e){
                 <p>Weight Kg   Min-Max </p>
                 <input type="text"
                     name='weight'
+                    required="required"
                     autoComplete="off"
+                    min='0'
+                    max='100'
                     placeholder='Weight Min-Max'
                     value={input.weight}
                     onChange= {handleChange}/>
+                   
 {/* 
                 <input type="number"
                     name='weightMin'
@@ -171,11 +176,14 @@ function handleSelect(e){
                     placeholder='Weight Minimun'
                     value={input.weightMin}
                     onChange= {handleChange}/> */}
-
+                    
                     <p>Life span</p>
                 <input type="number"
                     name='life_span'
+                    required="required"
                     autoComplete="off"
+                    min='0'
+                    max='25'
                     placeholder='Years of Life Span'
                     value={input.life_span}
                     onChange= {handleChange}/>
@@ -184,7 +192,7 @@ function handleSelect(e){
                 <select
 						name='temperament'
 						onChange={(e) => handleSelect(e)}
-						required
+						required="required"
 						value={input.temperament}
                         > {props.temperament && props.temperament.map(breed => (
                             <option value={breed.id}>{breed.temperament}{breed.name}</option>
@@ -201,7 +209,7 @@ function handleSelect(e){
 						<p id={t} >
 							{getNames([t])}{' '}
                             
-							<button type='button'onClick={(e) => deleteTemp(e, t)} >
+							<button  type='button'onClick={(e) => deleteTemp(e, t)} >
 								Delete
 							</button>
 						</p>
@@ -211,10 +219,12 @@ function handleSelect(e){
         {/* <p>Image</p>
               <input type="url" onChange={handleChange} value={input.image} name="image" placeholder="Url"/> */}
 
-                <p>Create</p>
                 
-                <button type= "submit"> Add Breed</button>
+                
+                <button className= 'button1' type= "submit"> Add Breed</button>
+                </div>
             </form>
+        </div>
         </div>
     )
 }

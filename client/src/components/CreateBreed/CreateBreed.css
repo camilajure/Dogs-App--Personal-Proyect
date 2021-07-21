@@ -1,10 +1,86 @@
 .body2{
-    background: url('../../contenidoestilos/cachorros.jpg');
-    background-repeat: no-repeat;
-	background-size: cover;
-	margin-top: 0%;
-	padding: 0%;
-	height: 100vh;
-    align-items: center;
-    box-sizing: border-box;
+    background: url('../../contenidoestilos/cachorros.jpg') center no-repeat;
+    
+   
 }
+.bodycard {
+    align-items: center;
+    background: transparent;
+    color: font-color;
+    display: grid;
+    font-family: font-family;
+    font-size: 14px;
+    font-weight: 400;
+    height: 100vh;
+    justify-items:self-start;
+    
+}
+
+
+    .containerform{
+        
+        border-radius: 0.5em;
+        box-shadow: 0 0 1em 0 rgba(51,51,51,0.25);
+        display: block;
+        max-width: 480px;
+        overflow: hidden;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+        width: 98%;
+    }
+    .containerform:before{
+        background: url('../../contenidoestilos/cachorros.jpg') center no-repeat;
+        background-size: cover;
+        content: '';
+        -webkit-filter: blur(10px);
+        filter: blur(10px);
+        height: 100vh;
+        position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100vw;
+    }
+.containerform:after{
+	background: rgba(255,255,255,0.6);
+	content: '';
+	display: block;
+	height: 100%;
+	position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+	width: 100%;
+}
+
+
+
+    .button1 {
+        align-items: center;
+        margin-top: 25px !important;
+        border: 1px solid rgba(0,0,0,.2);
+        height: 35px;
+        display: grid;
+        
+        border-radius: 19px;
+        font-family: font-family;
+        position: relative;
+      }
+  
+      /* & #back {
+        background: #fff;
+        transition: .2s all ease-in-out;
+        */
+    .button-hover {
+          background: #171A2B;
+          color: white;
+        } 

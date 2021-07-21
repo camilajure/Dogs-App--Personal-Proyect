@@ -18,18 +18,22 @@ const dispatch = useDispatch();
     
     return (
         <div className= 'body4'>
-      
+          <div className='containerdetail'>
+          
+       
+      {props.breedsDetail.length !== 0 ?   
 <div >
-    <img src={props.breedsDetail.image} width="360" height="240" alt="" />
+    <img className="image" src={props.breedsDetail.image} width="360" height="240" alt="" />
     <div >
         <div ><p>Name:</p><p>{props.breedsDetail.name}</p></div>
-        {/* <div ><p>Temperament:</p><p>{props.breedsDetail.temperament ? props.breedsDetail.temperament : props.breedsDetail.temperaments.map(temperament => temperament.name).join(", ")}</p></div> */}
+        <div ><p>Temperament:</p><p>{props.breedsDetail.temperament? props.breedsDetail.temperament :  props.breedsDetail.temperaments.map(temp => temp.name).join(', ') }</p></div>
         <div ><p>Weight:</p><p>{props.breedsDetail.weight}</p></div>
         <div ><p>Height:</p><p>{props.breedsDetail.height}</p></div>
         <div ><p>Life span:</p><p>{props.breedsDetail.life_span}</p></div>
     </div>
 </div>
-
+: <h1>Loading</h1>
+      }
           <div>
           <Link to='/home'>
 <button >Back</button>
@@ -37,6 +41,7 @@ const dispatch = useDispatch();
 <div >
   {/* <div><span>Loading..</span></div> */}
 </div> 
+</div>
             </div>
         </div>
 
@@ -47,12 +52,14 @@ const dispatch = useDispatch();
 function mapStateToProps(state) {
     return {
       breedsDetail: state.breedsDetail,
+      
     };
   }
   
   function mapDispatchToProps(dispatch) {
     return {
       getAllById: breeds => dispatch(getAllById(breeds)),
+      
     };
   }
   

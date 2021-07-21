@@ -9,10 +9,10 @@ export default function NavBar() {
             <nav>
                 <ul className="list">
                     <li className="list-item">
-                    <NavLink exact to="/" >Back</NavLink>
-                        <NavLink exact to="/home" >Home</NavLink>
+                    <NavLink className="boton" exact to="/" >Back</NavLink>
+                        <NavLink  className="boton" exact to="/home"  >Home</NavLink>
                         {/* <NavLink exact to="/home/:id" >Breed</NavLink> */}
-                        <NavLink to="/createBreed" >Create Breeds</NavLink>
+                        <NavLink className="boton" to="/createBreed" >Create Breeds</NavLink>
 
                         {/* <h1>input de busqueda por raza </h1>  */}
                         <div>
@@ -27,3 +27,4 @@ export default function NavBar() {
 }
 
 
+// onClick={()=> {window.location.href = "/home"}}

@@ -72,7 +72,7 @@ export function getBreedsByName(name){
 };
 
 
-export function getTemperament(id){
+export function getTemperament(){
     return function(dispatch){
         return axios.get('http://localhost:3001/temperament')
         .then((response) => {
@@ -91,19 +91,19 @@ export function getTemperament(id){
 //     .catch(err=>console.log(err));
 // }
 
-export function postBreed (){
-    return (dispatch)=>{
-    return axios.post('http://localhost:3001/breeds', {
-        headers: {"Content-Type": "application/json"},
-    })
-    .then((response) =>{
-        dispatch({
-            type: 'POST_BREED',
-            payload: response.data
-        })
-    });
-}
-}
+// export function postBreed (){
+//     return (dispatch)=>{
+//     return axios.post('http://localhost:3001/breeds', {
+//         headers: {"Content-Type": "application/json"},
+//     })
+//     .then((response) =>{
+//         dispatch({
+//             type: 'POST_BREED',
+//             payload: response.data
+//         })
+//     });
+// }
+// }
 
 
 //FILTROS!!
@@ -133,10 +133,10 @@ export function orderWeight(value) {
 	}
 }
 
-export function tempFilter(value){
+export function tempFilter(payload){
     return{
     type: 'TEMP_FILTER',
-    payload: value,
+    payload: payload,
     }
 }
 
@@ -149,8 +149,10 @@ export function getCreateBreedsFromDb(value) {
 		return {
 			type: 'API',
 		};
-	}else {
-		return (getAllBreeds())
+	}else if (value === 'ALL') {
+		return {
+            type: 'ALL'
+        }
 	}
 }
 
@@ -169,3 +171,4 @@ export const ORDER_WEIGHTMIN = 'ORDER_WEIGHTMIN';
 export const TEMP_FILTER = 'TEMP_FILTER';
 export const DB = 'DB';
 export const API= 'API';
+export const ALL= 'ALL';

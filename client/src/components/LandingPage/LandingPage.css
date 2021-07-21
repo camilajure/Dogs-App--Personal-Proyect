@@ -1,7 +1,7 @@
 
 .body{
     /* background: url('../../contenidoestilos/doginicio3.gif'); */
-    background: url('../../contenidoestilos/start.jpg');
+    background: url('../../contenidoestilos/start.jpg') center no-repeat;
             /* background: burlywood; */
     background-repeat: no-repeat;
 	background-size: cover;
@@ -16,23 +16,35 @@
 
 
 .button {
-    width: 100px;
+    font-family:  font-family 5px;
+    font-size: 20px;
+    margin-top: 70px !important;
+
+    position: absolute;
+    top: 20%; 
+    width: 120px;
+    height: 50px;
     padding: 0.5rem;
     border: none;
     border-radius: 0.3rem;
-    background-color: grey;
+    background-color:A7B0BB;
     display:flexbox;
-	margin-top: 350px;
-    left: 250px;
-	position: absolute;
+	margin-top: 80px;
+    left: 1250px;
+	position: left;
     justify-content:center;
-    float:right;
     color: black;
-    
+    margin-bottom: 25px;
+    border-radius: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
     
 }
 
 .button:hover {
     cursor: pointer;
+    background-color: #85868E;
     
 }
+

@@ -208,7 +208,7 @@ function handleSelect(e){
                     onChange= {handleChange}/> */}
                     
                     <p>Life span</p>
-                <input type="number"
+                <input type="text"
                     name='life_span'
                     required="required"
                     autoComplete="off"

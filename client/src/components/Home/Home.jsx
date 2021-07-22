@@ -9,7 +9,7 @@ function Home() {
     
     return (
         <div className= 'body3'>
-            <Filter/>
+            
             <PaginationComponent/>
         </div>
     )

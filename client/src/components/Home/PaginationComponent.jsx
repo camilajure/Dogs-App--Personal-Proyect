@@ -148,7 +148,7 @@ const [card,setCard]= useState(breeds);
     return (
       <>
       <div className="body3">
-      
+      <Filter/>
          
         {renderCard(currentItems)}
         {/* itemsPerPage={itemsPerPage}
@@ -160,7 +160,7 @@ const [card,setCard]= useState(breeds);
               onClick={handlePrevbtn}
               disabled={currentPage === pages[0] ? true : false}
             >
-              Prev
+              Back
             </button>
           </li>
           {pageDecrementBtn}
@@ -202,3 +202,33 @@ function mapDispatchToProps(dispatch) {
 
 
 
+
+
+
+
+  // let button = false;
+  // let button1 = false;
+
+  // if(page > 0 && page < 168 ){
+  //   button = true;
+  // }
+  // console.log(page);
+  // if(page == 168 ){
+  //   button1 = true;
+  // }
+//   {button ? <div className={style.container}>
+//   <button className={style.button} onClick={prev_Page}>
+//     Back
+//   </button>
+
+//   <button className={style.button} onClick={next_Page}>
+//     Next
+//   </button>
+// </div> : button1?
+//         <button className={style.button} onClick={prev_Page}>
+//         Back
+//       </button>
+//       :
+// <div><button className={style.button} onClick={next_Page}>
+//     Next
+//   </button></div>

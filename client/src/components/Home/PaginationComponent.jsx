@@ -35,7 +35,7 @@ const renderCard=(card)=> {
           
           </div>
         )
-      }): <div className= 'description'> <p>No More Dogs...</p>
+      }): <div className= 'description2'> <p>No More Dogs...</p>
         <img src="https://media.tenor.com/images/e1ce4124fa1beeefed3e7d701cb65eff/tenor.gif " alt="LoadingGif" className='loadingGif' /> </div> }
           
       </div>

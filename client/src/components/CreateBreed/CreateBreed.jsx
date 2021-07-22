@@ -6,6 +6,40 @@ import { useDispatch, useSelector} from 'react-redux';
 import { connect } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
+function validate(input) {
+	let errors = {};
+	if (!input.name) {
+		errors.name = 'You must type a name';
+	} else {
+		errors.name = '';
+	}
+	if (!input.weight) {
+		errors.weight = 'You must type a weight range';
+	} else if (!/\d{1,2}-\d{1,2}/g.test(input.weight)) {
+		errors.weight = "Weight must be a range. Example: '10-15'";
+	} else {
+		errors.weight = '';
+	}
+
+	if (!input.height) {
+		errors.height = 'You must type a height range';
+	} else if (!/\d{1,2}-\d{1,2}/g.test(input.height)) {
+		errors.height = "Height must be a range. Example: '10-15'";
+	} else {
+		errors.height = '';
+	}
+	if (!input.life_span) {
+		errors.life_span = 'You must type a life span';
+	} else if (!/\d{1,2}-\d{1,2}/g.test(input.life_span)) {
+		errors.life_span = "Life span must be a range. Example: '10-15'";
+	} else {
+		errors.life_span = '';
+	}
+	return errors;
+}
+
+
+
 function CreateBreed(props) {
     const [input, setInput] = useState({
 		name:'',
@@ -17,7 +51,7 @@ function CreateBreed(props) {
 	});
     const temperament = useSelector((input) => input.temperament);
     // const dispatch = useDispatch();
-    // const [errors, setErrors] = useState({});
+     const [errors, setErrors] = useState({});
 const history = useHistory();
 
     useEffect(() => {
@@ -30,12 +64,19 @@ const history = useHistory();
             ...input,
             [e.target.name]: e.target.value
         })
+        setErrors(
+			validate({
+				...input,
+				[e.target.name]: e.target.value,
+			})
+		);
     }
 
 
 
    async function handleSubmit  (e){
         e.preventDefault();
+        if (!errors.name && !errors.weight && !errors.height && !errors.life_span){
         try{
                 await fetch('http://localhost:3001/breeds',
             {
@@ -48,6 +89,9 @@ const history = useHistory();
             console.log(err.message)
             alert('We could not create breed. Please try again.');
         }
+    } else {
+        alert('Something went wrong. Please try again.');
+    }
         setInput({
                     name: '',
                     height:'',
@@ -58,10 +102,7 @@ const history = useHistory();
                 history.push('/');
             }
 
-         
-
-
-        // function handleDispatch() {
+            // function handleDispatch() {
         //     props.getTemperament()
                 
         // }
@@ -114,7 +155,11 @@ function handleSelect(e){
                     placeholder='Name breed'
                     value={input.name}
                     onChange= {handleChange}/>
-            
+            {
+                            errors.name && (
+                                <p className="yellow">{errors.name}</p>
+                            )
+                        }
                 
                 <p>Height  Min-Max</p>
                 <input type="text"
@@ -126,7 +171,11 @@ function handleSelect(e){
                     placeholder='Height Min-Max'
                     value={input.height}
                     onChange= {handleChange}/>
-                    
+                    {
+                            errors.height && (
+                                <p className="yellow">{errors.height}</p>
+                            )
+                        }
 {/* 
                 <input type="number"
                     name='heightMin'
@@ -145,7 +194,11 @@ function handleSelect(e){
                     placeholder='Weight Min-Max'
                     value={input.weight}
                     onChange= {handleChange}/>
-                   
+                   {
+                            errors.weight && (
+                                <p className="yellow">{errors.weight}</p>
+                            )
+                        }
 {/* 
                 <input type="number"
                     name='weightMin'
@@ -164,6 +217,12 @@ function handleSelect(e){
                     placeholder='Years of Life Span'
                     value={input.life_span}
                     onChange= {handleChange}/>
+                {
+                            errors.life_span && (
+                                <p className="yellow">{errors.life_span}</p>
+                            )
+                        }
+
 
                 <p>Temperaments</p>
                 <select

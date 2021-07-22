@@ -115,3 +115,7 @@
             font-family: font-family;
             position: relative;
           }
+
+          .yellow{
+              color:rgb(77, 62, 124);
+          }

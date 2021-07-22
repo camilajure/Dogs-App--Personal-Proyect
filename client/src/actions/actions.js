@@ -13,37 +13,6 @@ export function getAllBreeds(){
     }
 
 
-// export const getSoilData = (polygonId) => {
-//     return function (dispatch) {
-//         axios
-//             .get(`https://api.agromonitoring.com/agro/1.0/soil?polyid=${polygonId}&appid=b18836b4cf50726ea1bcdc1073c39105`)
-//             .then((r) => r.data)
-//             .then((data) => {
-//                 dispatch({
-//                     type: GET_SOIL_DATA,
-//                     payload: data
-//                 });
-//             });
-//     }
-// }
-
-
-
-
-// export function getRecipesByName(name) {      //accion que me trae las recetas por nombre
-//     return function (dispatch) {
-//         return fetch ('http://localhost:5000/recipes?name=' + name)
-//             .then(response => response.json())
-//             .then(json => {
-//                 dispatch({
-//                     type: 'GET_RECIPES_BY_NAME',
-//                     payload: json
-//                 });
-//             });
-//     };
-// }
-
-
 
 export function getAllById(id){
     return  function(dispatch){
@@ -83,27 +52,6 @@ export function getTemperament(){
         })
     }
 };
-
-
-// export function postBreed (payload){
-//     return axios.post('http://localhost:3001/breeds', payload)
-//     .then(response => console.log(response))
-//     .catch(err=>console.log(err));
-// }
-
-// export function postBreed (){
-//     return (dispatch)=>{
-//     return axios.post('http://localhost:3001/breeds', {
-//         headers: {"Content-Type": "application/json"},
-//     })
-//     .then((response) =>{
-//         dispatch({
-//             type: 'POST_BREED',
-//             payload: response.data
-//         })
-//     });
-// }
-// }
 
 
 //FILTROS!!
@@ -157,7 +105,6 @@ export function getCreateBreedsFromDb(value) {
 }
 
 
-
 export const GET_BREEDS = 'GET_BREEDS';
 export const GET_ID = 'GET_ID';
 export const GET_BYNAME = 'GET_BYNAME';
@@ -172,3 +119,4 @@ export const TEMP_FILTER = 'TEMP_FILTER';
 export const DB = 'DB';
 export const API= 'API';
 export const ALL= 'ALL';
+

@@ -13,7 +13,7 @@ const renderCard=(card)=> {
   return (
       <div className='contenedor2' >{
         card.length !== 0 ?
-        
+
         card.map((card) => {
       
         return(
@@ -21,13 +21,7 @@ const renderCard=(card)=> {
         <div className='container'>
     
         <div className='breed-card'>
-      
-       
                   <p className='name'>{card.name}</p>
-                  
-                  {/* <button className = 'buttonMoreDetails'>More Details</button> */}
-                  
-                  
                   <img className='image' src={card.image}  width="300" height="200" alt=""/>
 
                   {/* para que me muestre los temperamentos de los nuevos perros creados */}
@@ -41,12 +35,12 @@ const renderCard=(card)=> {
           
           </div>
         )
-      }): "Loading..."}
+      }): <div className= 'description'> <p>No More Dogs...</p>
+        <img src="https://media.tenor.com/images/e1ce4124fa1beeefed3e7d701cb65eff/tenor.gif " alt="LoadingGif" className='loadingGif' /> </div> }
           
       </div>
   )
 }
-//`/home/${id}`
 
   
   function PaginationComponent({filteredBreeds,breeds, getAllBreeds}) {
@@ -59,24 +53,28 @@ const renderCard=(card)=> {
   },[])
   
     useEffect(() => {
-     getAllBreeds()
-
-      if( filteredBreeds.length > 0 ) {
+    getAllBreeds()
+// if (card === true ){
+// getAllBreeds()
+// setCard(false)}
+      if
+      ( filteredBreeds.length > 0 ) {
         setCard(filteredBreeds)
       }
-      // else if (breeds.length > 0 ){
-      //   setCard(breeds)
-      // }
+      else if (filteredBreeds.length === 0 ){
+        setCard(breeds)
+      }
       else if (filteredBreeds === 'All'){
         setCard(breeds)}
       else{
         setCard(breeds)
       }
+    
       }, [filteredBreeds])
 
 
 const [card,setCard]= useState(breeds);
-
+// const [firstRender, setFirstRender]= useState(true)
 
     const [currentPage, setcurrentPage] = useState(1);
     const [itemsPerPage, setitemsPerPage] = useState(8);
@@ -94,18 +92,6 @@ const [card,setCard]= useState(breeds);
       pages.push(i);
     }
 
-  //  let cardtodas;
-
-    // if( filteredBreeds.length > 0 ) {
-    //  return cardtodas
-    // } else {
-    //   return cardtodas
-    // }
-  //   // 
-  //   filteredBreeds.length > 0
-  // ?(cardtodas = card)
-  // :(cardtodas =filteredBreeds)
-  
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = card.slice(indexOfFirstItem, indexOfLastItem);
@@ -135,7 +121,7 @@ const [card,setCard]= useState(breeds);
       if (currentPage + 1 > maxPageNumberLimit) {
         setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
         setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-      }
+      } 
     };
   
     const handlePrevbtn = () => {
@@ -162,10 +148,12 @@ const [card,setCard]= useState(breeds);
     return (
       <>
       <div className="body3">
-      <Filter/>
+      
          
         {renderCard(currentItems)}
-  
+        {/* itemsPerPage={itemsPerPage}
+        totalcard= {card.length}
+        pages= {pages} */}
         <ul className="pageNumbers">
           <li>
             <button

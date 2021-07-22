@@ -15,7 +15,7 @@ function Filter() {
     const [arrayTemps, setArrayTemps] = useState([]);
     const [input, setInput] = useState({ name: "" });
     const dispatch = useDispatch();
-    const [showNoResult, setShowNoResult] = useState(false);
+    //const [showNoResult, setShowNoResult] = useState(false);
 
 
     useEffect(() => {
@@ -46,44 +46,10 @@ function Filter() {
     }
     //basededatos
     function handleInput(event) {
-        setInput({ name: event.target.value });
+        // setInput({ name: event.target.value });
         dispatch(getCreateBreedsFromDb(event.target.value))
     }
 
-    //TEMPERAMENTO
-
-    const handleClick = (e) => {
-        let filteredBreeds = [];
-        setShowNoResult(false);
-    
-        if (arrayTemps.length === 0) {
-            dispatch(tempFilter([]));
-        
-        }
-    
-        // if (!empty) {
-        //     breeds.forEach((b) => {
-        //         let temps = b.temperament?.map(t => t.name) ; // ["curious", "active"]
-        //         for (let i = 0; i < arrayTemps.length; i++) {
-        //             if (!temps.includes(arrayTemps[i])) {
-        //                 return
-        //             }
-        //         }
-        //         filteredBreeds.push(b);
-        //     })
-    
-            // if (filteredBreeds.length === 0) {
-            //     setShowNoResult(true);
-            // }
-    
-        // } 
-        else {
-            setArrayTemps([])
-            getAllBreeds()
-        }
-        dispatch(tempFilter(filteredBreeds)); //[{}, {}] --> action a redux
-
-    }
      //temperamento
      function handleChangeTemperament(e) {
         // dispatch(tempFilter(e.target.value))
@@ -109,6 +75,7 @@ function Filter() {
 
 
 
+
     return (
         <div >
 
@@ -118,9 +85,6 @@ function Filter() {
                     <option value="" disabled selected>Order by </option>
                     <option value='ORDER_ASC'>Alphabet - A-Z</option>
                     <option value='ORDER_DESC'>Alphabet - Z-A</option>
-                    {/* <option value="" disabled selected>Order by Weight</option> */}
-                    {/* <option value='ORDER_WEIGHTMAX'>Weight Min. - Max.</option>
-                    <option value='ORDER_WEIGHTMIN'>Weight Max -  Min.</option> */}
                 </select>
             </form>
 
@@ -136,7 +100,6 @@ function Filter() {
 
             <form className="boton" onSubmit={handleSubmit}>
                 <select className="boton" onChange={(e) => handleChangeTemperament(e)} value={filterTemp} name="temperaments">
-                    {/* <option value='' disabled selected>Temperament</option> */}
                     <option value= 'All'>All </option>
                     {temperament.map((e) => (
                         <option  value={e.name} key={e.id}>
@@ -145,6 +108,7 @@ function Filter() {
                     ))}
                     
                 </select>
+      
                 {/* <button type= 'reset' onClick={()=> {window.location.href = "/home"}}> Reset</button>
              */}
              {/* <form onSubmit={(e) => handleSubmit(e)} >
@@ -156,7 +120,6 @@ function Filter() {
             <form className="boton" onChange={(e) => handleSubmit(e)}>
                 <select className="boton" onChange={(e) => handleInput(e)} value='' name="db" >
                     <option value="" disabled selected>All Breeds Created</option>
-                    {/* <option>All Breeds </option> */}
                     <option value='DB'>Created</option>
 					<option value='API'>API</option>
 					{/* <option value='ALL'>ALL</option> */}
@@ -166,12 +129,57 @@ function Filter() {
                         </option>
                     ))} */}
                 </select>
-                {/* <button type= 'reset' onClick={()=> {window.location.href = "/home"}}> Reset</button> */}
+               
             </form>
 
-            <button className="boton" onClick={(e) => handleClick(e)}>Clear Temperaments</button>
+           
         </div>
     )
 }
 
 export default Filter
+
+
+
+
+
+
+
+
+ // <button type= 'reset' onClick={()=> {window.location.href = "/home"}}> Reset</button> 
+// <button className="boton" onClick={(e) => handleClick(e)}>Clear Temperaments</button> 
+
+    //TEMPERAMENTO
+
+    // const handleClick = (e) => {
+    //     let filteredBreeds = [];
+    //     setShowNoResult(false);
+    
+    //     if (arrayTemps.length === 0) {
+    //         dispatch(tempFilter([]));
+        
+    //     }
+    
+    //     // if (!empty) {
+    //     //     breeds.forEach((b) => {
+    //     //         let temps = b.temperament?.map(t => t.name) ; // ["curious", "active"]
+    //     //         for (let i = 0; i < arrayTemps.length; i++) {
+    //     //             if (!temps.includes(arrayTemps[i])) {
+    //     //                 return
+    //     //             }
+    //     //         }
+    //     //         filteredBreeds.push(b);
+    //     //     })
+    
+    //         // if (filteredBreeds.length === 0) {
+    //         //     setShowNoResult(true);
+    //         // }
+    
+    //     // } 
+    //     else {
+    //         setArrayTemps([])
+    //         getAllBreeds()
+    //     }
+    //     dispatch(tempFilter(filteredBreeds)); //[{}, {}] --> action a redux
+
+    // }

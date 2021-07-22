@@ -5,17 +5,18 @@ import Search from './Search';
 
 export default function NavBar() {
     return (
-        <header className="navbar">
+        <header className="list">
             <nav>
-                <ul className="list">
-                    <li className="list-item">
-                    <NavLink className="boton" exact to="/" >Back</NavLink>
-                        <NavLink  className="boton" exact to="/home"  >Home</NavLink>
+                <ul className=''>
+                    <li className="">
+                    <NavLink className= 'back' exact to="/" >Start</NavLink>
+                        <NavLink className= 'home'  exact to="/home"  >Home</NavLink>
                         {/* <NavLink exact to="/home/:id" >Breed</NavLink> */}
-                        <NavLink className="boton" to="/createBreed" >Create Breeds</NavLink>
+                        <NavLink className= 'create' to="/createBreed" >Create Breeds</NavLink>
 
                         {/* <h1>input de busqueda por raza </h1>  */}
                         <div>
+                            
                         <Search />
                         </div>
                     </li>

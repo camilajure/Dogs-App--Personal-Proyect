@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from 'react';
 import './CreateBreed.css';
-import {getBreeds, getTemperament, postBreed} from '../../actions/actions';
+import {getBreeds, getTemperament} from '../../actions/actions';
 import { useDispatch, useSelector} from 'react-redux';
 //import axios from 'axios';
 import { connect } from 'react-redux';
@@ -58,30 +58,7 @@ const history = useHistory();
                 history.push('/');
             }
 
-    //     if (!errors.name && !errors.weight && !errors.height && !errors.life_span) {
-    //     axios
-    //     .post('http://localhost:3001/breeds', input)
-    //     .then((r) => {
-    //         alert('Breed created successfully!');
-                
-    //             setInput({
-    //         name: '',
-    //         heightMax: '',
-    //         heightMin: '',
-    //         weightMax: '',
-    //         weightMin: '',
-    //         lifeSpan: '',
-    //         temperament: [],
-    //     })
-    //         })
-    //         .catch((res) => alert('We could not create breed. Please try again.'));
-    //     }
-    // else {
-	// 		alert('Something went wrong. Please try again.');
-	// 	}
-     
-
-            
+         
 
 
         // function handleDispatch() {
@@ -209,7 +186,7 @@ function handleSelect(e){
 						<p id={t} >
 							{getNames([t])}{' '}
                             
-							<button  type='button'onClick={(e) => deleteTemp(e, t)} >
+							<button  type='buttondelete'onClick={(e) => deleteTemp(e, t)} >
 								Delete
 							</button>
 						</p>

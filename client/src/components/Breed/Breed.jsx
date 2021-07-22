@@ -32,15 +32,15 @@ const dispatch = useDispatch();
         <div ><p>Life span:</p><p>{props.breedsDetail.life_span}</p></div>
     </div>
 </div>
-: <h1>Loading</h1>
-      }
+: <div>
+<h1>Loading</h1>
+<img src="https://media.tenor.com/images/19340ef71bb2174d9c9335740e03f85c/tenor.gif " alt="LoadingGif" className='loadingGif' /> 
+     </div> }
           <div>
           <Link to='/home'>
-<button >Back</button>
+<button className='buttonback' >Back</button>
 </Link>
-<div >
-  {/* <div><span>Loading..</span></div> */}
-</div> 
+
 </div>
             </div>
         </div>

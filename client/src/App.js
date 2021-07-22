@@ -25,5 +25,5 @@ function App() {
       </BrowserRouter>
   );
 }
-//<Route exact path="/updatetransporte/:id" render={({ match }) => <UpdateTransporte id={match.params.id} />}></Route> 
+
 export default App;

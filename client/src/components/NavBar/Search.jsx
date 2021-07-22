@@ -1,10 +1,11 @@
 import React, {  useState } from "react";
 import { connect } from "react-redux";
 import './Search.css';
-import { getBreedsByName } from "../../actions/actions";
+import { getBreedsByName} from "../../actions/actions";
+
 
 function Search (props) {
-const [loading, setLoading]=useState(true)
+// const [loading, setLoading]=useState(true)
 const [input, setInput] = useState({name: ""});
 
 function handleChange(event) {
@@ -12,24 +13,19 @@ function handleChange(event) {
     }
 
 function handleSubmit(event) {
+    
     event.preventDefault();
     props.getBreedsByName(input.name);
      setInput({name:""});
     }
-//cuando hago click en search se resetea todos los estados chequear
-    return (
-    <div>
 
+return (
         
- {/* {loading ? 
-     <div className='containerLoading'>
-         <img src="https://media4.giphy.com/media/kHgUVJysYKJjzJf1XY/source.gif" alt="LoadingGif" className='loadingGif' /> 
-     </div> 
-             :  */}
+    <div>
         <form className="search" onSubmit={(e) => handleSubmit(e)}>
             <div>
             
-            <input className="boton"
+            <input className="buttoncreate"
             placeholder='Breed Name'
                 name="title"
                 type="text"
@@ -37,13 +33,13 @@ function handleSubmit(event) {
                 autoComplete="off"
                 value={input.name}
                 onChange={(e) => handleChange(e)}
-            /><button className="boton" type="submit">Search</button>
+            /><button className="buttonSearch" type="submit">Search</button>
+            <button className="buttonReset" type="submit">Reset Filters</button>
         </div>
  
         </form>
-{/* } */}
     </div>
-   );
+);
 }
 
 

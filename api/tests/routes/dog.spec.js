@@ -13,7 +13,7 @@ const breed = {
   life_span: "7 - 14"
 };
 
-describe('Videogame routes', () => {
+describe('Dog routes', () => {
   before(() => conn.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
